@@ -3,19 +3,36 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		641A16D324C46AE20038A80B /* PostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641A16D224C46AE20038A80B /* PostData.swift */; };
+		641A16D624C46B110038A80B /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641A16D424C46B110038A80B /* PostTableViewCell.swift */; };
+		641A16D724C46B110038A80B /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 641A16D524C46B110038A80B /* PostTableViewCell.xib */; };
+		641A16D924C46D7F0038A80B /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641A16D824C46D7F0038A80B /* Const.swift */; };
+		641A16DB24C46E030038A80B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 641A16DA24C46E030038A80B /* GoogleService-Info.plist */; };
 		64C7420124C42D240018258E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7420024C42D240018258E /* AppDelegate.swift */; };
 		64C7420324C42D240018258E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7420224C42D240018258E /* SceneDelegate.swift */; };
 		64C7420524C42D240018258E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7420424C42D240018258E /* ViewController.swift */; };
 		64C7420824C42D240018258E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64C7420624C42D240018258E /* Main.storyboard */; };
 		64C7420A24C42D260018258E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64C7420924C42D260018258E /* Assets.xcassets */; };
 		64C7420D24C42D260018258E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64C7420B24C42D260018258E /* LaunchScreen.storyboard */; };
+		64C7421524C455BE0018258E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7421424C455BE0018258E /* LoginViewController.swift */; };
+		64C7421724C455D30018258E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7421624C455D30018258E /* HomeViewController.swift */; };
+		64C7421924C455FA0018258E /* ImageSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7421824C455FA0018258E /* ImageSelectViewController.swift */; };
+		64C7421B24C456120018258E /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7421A24C456120018258E /* PostViewController.swift */; };
+		64C7421D24C4562C0018258E /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7421C24C4562C0018258E /* SettingViewController.swift */; };
+		A92700832C724B038BC8D70A /* Pods_Oh_Gili.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78B1D6B0F3CE57053745EBC4 /* Pods_Oh_Gili.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		32BB186BE8B99AF1400CD0EA /* Pods-Oh-Gili.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Oh-Gili.release.xcconfig"; path = "Target Support Files/Pods-Oh-Gili/Pods-Oh-Gili.release.xcconfig"; sourceTree = "<group>"; };
+		641A16D224C46AE20038A80B /* PostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostData.swift; sourceTree = "<group>"; };
+		641A16D424C46B110038A80B /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		641A16D524C46B110038A80B /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
+		641A16D824C46D7F0038A80B /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
+		641A16DA24C46E030038A80B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		64C741FD24C42D240018258E /* Oh-Gili.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Oh-Gili.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		64C7420024C42D240018258E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		64C7420224C42D240018258E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +41,13 @@
 		64C7420924C42D260018258E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		64C7420C24C42D260018258E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		64C7420E24C42D260018258E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		64C7421424C455BE0018258E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		64C7421624C455D30018258E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		64C7421824C455FA0018258E /* ImageSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelectViewController.swift; sourceTree = "<group>"; };
+		64C7421A24C456120018258E /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		64C7421C24C4562C0018258E /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		78B1D6B0F3CE57053745EBC4 /* Pods_Oh_Gili.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Oh_Gili.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADB1FED8E03374AE34E0E682 /* Pods-Oh-Gili.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Oh-Gili.debug.xcconfig"; path = "Target Support Files/Pods-Oh-Gili/Pods-Oh-Gili.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +55,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A92700832C724B038BC8D70A /* Pods_Oh_Gili.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		61BE49EFF9A934E1E7CDE89A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				ADB1FED8E03374AE34E0E682 /* Pods-Oh-Gili.debug.xcconfig */,
+				32BB186BE8B99AF1400CD0EA /* Pods-Oh-Gili.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		64C741F424C42D240018258E = {
 			isa = PBXGroup;
 			children = (
 				64C741FF24C42D240018258E /* Oh-Gili */,
 				64C741FE24C42D240018258E /* Products */,
+				61BE49EFF9A934E1E7CDE89A /* Pods */,
+				EFCCE1201ECC5085B831028D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,13 +94,55 @@
 			children = (
 				64C7420024C42D240018258E /* AppDelegate.swift */,
 				64C7420224C42D240018258E /* SceneDelegate.swift */,
-				64C7420424C42D240018258E /* ViewController.swift */,
-				64C7420624C42D240018258E /* Main.storyboard */,
+				64C7421E24C456430018258E /* Model */,
+				64C7422024C4567F0018258E /* Controller */,
+				64C7421F24C456610018258E /* View */,
 				64C7420924C42D260018258E /* Assets.xcassets */,
 				64C7420B24C42D260018258E /* LaunchScreen.storyboard */,
 				64C7420E24C42D260018258E /* Info.plist */,
+				641A16DA24C46E030038A80B /* GoogleService-Info.plist */,
 			);
 			path = "Oh-Gili";
+			sourceTree = "<group>";
+		};
+		64C7421E24C456430018258E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				641A16D224C46AE20038A80B /* PostData.swift */,
+				641A16D824C46D7F0038A80B /* Const.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		64C7421F24C456610018258E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				64C7420624C42D240018258E /* Main.storyboard */,
+				641A16D424C46B110038A80B /* PostTableViewCell.swift */,
+				641A16D524C46B110038A80B /* PostTableViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		64C7422024C4567F0018258E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				64C7420424C42D240018258E /* ViewController.swift */,
+				64C7421424C455BE0018258E /* LoginViewController.swift */,
+				64C7421624C455D30018258E /* HomeViewController.swift */,
+				64C7421824C455FA0018258E /* ImageSelectViewController.swift */,
+				64C7421A24C456120018258E /* PostViewController.swift */,
+				64C7421C24C4562C0018258E /* SettingViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		EFCCE1201ECC5085B831028D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				78B1D6B0F3CE57053745EBC4 /* Pods_Oh_Gili.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +152,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 64C7421124C42D260018258E /* Build configuration list for PBXNativeTarget "Oh-Gili" */;
 			buildPhases = (
+				DBE3C6BB1842B031FC374340 /* [CP] Check Pods Manifest.lock */,
 				64C741F924C42D240018258E /* Sources */,
 				64C741FA24C42D240018258E /* Frameworks */,
 				64C741FB24C42D240018258E /* Resources */,
+				90CF7F1617D2BC7430A12BF3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -127,20 +207,72 @@
 			files = (
 				64C7420D24C42D260018258E /* LaunchScreen.storyboard in Resources */,
 				64C7420A24C42D260018258E /* Assets.xcassets in Resources */,
+				641A16DB24C46E030038A80B /* GoogleService-Info.plist in Resources */,
 				64C7420824C42D240018258E /* Main.storyboard in Resources */,
+				641A16D724C46B110038A80B /* PostTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		90CF7F1617D2BC7430A12BF3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Oh-Gili/Pods-Oh-Gili-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Oh-Gili/Pods-Oh-Gili-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Oh-Gili/Pods-Oh-Gili-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DBE3C6BB1842B031FC374340 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Oh-Gili-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		64C741F924C42D240018258E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64C7421924C455FA0018258E /* ImageSelectViewController.swift in Sources */,
+				641A16D324C46AE20038A80B /* PostData.swift in Sources */,
+				64C7421724C455D30018258E /* HomeViewController.swift in Sources */,
+				64C7421B24C456120018258E /* PostViewController.swift in Sources */,
+				64C7421D24C4562C0018258E /* SettingViewController.swift in Sources */,
+				64C7421524C455BE0018258E /* LoginViewController.swift in Sources */,
 				64C7420524C42D240018258E /* ViewController.swift in Sources */,
+				641A16D624C46B110038A80B /* PostTableViewCell.swift in Sources */,
 				64C7420124C42D240018258E /* AppDelegate.swift in Sources */,
 				64C7420324C42D240018258E /* SceneDelegate.swift in Sources */,
+				641A16D924C46D7F0038A80B /* Const.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,37 +414,43 @@
 		};
 		64C7421224C42D260018258E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ADB1FED8E03374AE34E0E682 /* Pods-Oh-Gili.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEVELOPMENT_TEAM = J8LP9MW8T8;
 				INFOPLIST_FILE = "Oh-Gili/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.tomokazu.takahashi.Oh-Gili";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		64C7421324C42D260018258E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 32BB186BE8B99AF1400CD0EA /* Pods-Oh-Gili.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEVELOPMENT_TEAM = J8LP9MW8T8;
 				INFOPLIST_FILE = "Oh-Gili/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.tomokazu.takahashi.Oh-Gili";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
