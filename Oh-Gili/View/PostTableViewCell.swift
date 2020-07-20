@@ -29,6 +29,9 @@ class PostTableViewCell: UITableViewCell {
     }
 
     func setPostData(_ postData: PostData) {
+        
+        self.profileImageView.image = postData.profileImage
+        
         self.postImageView.image = postData.image
 
         self.captionLabel.text = "\(postData.name!) : \(postData.caption!)"

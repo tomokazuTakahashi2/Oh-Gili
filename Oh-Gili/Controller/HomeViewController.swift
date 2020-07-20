@@ -120,6 +120,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
         return cell
     }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 450
+    
+    }
 
     // セル内のボタンがタップされた時に呼ばれるメソッド
     @objc func handleButton(_ sender: UIButton, forEvent event: UIEvent) {

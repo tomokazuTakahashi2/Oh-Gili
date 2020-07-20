@@ -22,8 +22,11 @@ class ViewController: UIViewController {
         
         // currentUserがnilならログインしていない
         if Auth.auth().currentUser == nil {
-            // ログインしていないときの処理
+            // ログインしていないときはloginViewControllerを表示
             let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "Login")
+            //モーダル表示をせず、フルスクリーンにする
+            loginViewController?.modalPresentationStyle = .fullScreen
+            
             self.present(loginViewController!, animated: true, completion: nil)
         }
     }
