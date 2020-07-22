@@ -20,6 +20,14 @@ class PostViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var textField: UITextField!
     
+    //MARK: - viewDidLoad
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // 受け取った画像をImageViewに設定する
+        imageView.image = image
+        
+    }
     //MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -70,12 +78,13 @@ class PostViewController: UIViewController {
         let imageString = imageData!.base64EncodedString(options: .lineLength64Characters)
 
        // postDataに必要な情報を取得しておく
+        let uid = Auth.auth().currentUser?.uid
         let postRef = Database.database().reference().child(Const.PostPath)
         let time = Date.timeIntervalSinceReferenceDate
         let name = Auth.auth().currentUser?.displayName
 
         // 辞書を作成してFirebaseに保存する
-        let postDic = ["profileImage": profileImageString,"caption": textField.text!, "image": imageString, "time": String(time), "name": name!]
+        let postDic = ["uid":uid!,"profileImage": profileImageString,"caption": textField.text!, "image": imageString, "time": String(time), "name": name!]
         postRef.childByAutoId().setValue(postDic)
 
         // HUDで投稿完了を表示する
@@ -91,11 +100,7 @@ class PostViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
 
-        // 受け取った画像をImageViewに設定する
-        imageView.image = image
-    }
 
 }
+

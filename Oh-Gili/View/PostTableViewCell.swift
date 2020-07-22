@@ -11,6 +11,7 @@ import UIKit
 class PostTableViewCell: UITableViewCell {
 
     @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var postImageView: UIImageView!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var likeLabel: UILabel!
@@ -34,8 +35,12 @@ class PostTableViewCell: UITableViewCell {
         
         self.postImageView.image = postData.image
 
-        self.captionLabel.text = "\(postData.name!) : \(postData.caption!)"
+        self.captionLabel.text = "\(postData.caption!)"
+        
         let likeNumber = postData.likes.count
+        
+        self.nameLabel.text = "\(postData.name!)"
+        
         likeLabel.text = "\(likeNumber)"
 
         let formatter = DateFormatter()
@@ -47,7 +52,7 @@ class PostTableViewCell: UITableViewCell {
             let buttonImage = UIImage(named: "座布団")
             self.likeButton.setImage(buttonImage, for: .normal)
         } else {
-            let buttonImage = UIImage(named: "座布団(白黒)")
+            let buttonImage = UIImage(named: "座布団（白黒）")
             self.likeButton.setImage(buttonImage, for: .normal)
         }
     }

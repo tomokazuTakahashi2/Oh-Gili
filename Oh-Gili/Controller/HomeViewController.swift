@@ -8,12 +8,16 @@
 
 import UIKit
 import Firebase
+import SVProgressHUD
 
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
 
     var postArray: [PostData] = []
+    
+    //ブロックされたユーザーID
+    var blockUserIdArray =  [String]()
 
     // DatabaseのobserveEventの登録状態を表す
     var observing = false
@@ -121,9 +125,156 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 450
+        return 500
     
     }
+    
+    //自分以外＝>報告・ブロックする
+    internal func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let postData = postArray[indexPath.row]
+        let postRef = Database.database().reference().child(Const.PostPath)
+        let posts = postRef.child(postData.id!)
+
+        //もし、投稿ユーザーIDが自分のIDじゃなかったら、
+        if postData.uid != Auth.auth().currentUser?.uid{
+            //💡スワイプアクション報告ボタン
+            let reportButton: UIContextualAction = UIContextualAction(style: .normal, title: "報告",handler:  { (action: UIContextualAction, view: UIView, success :(Bool) -> Void )in
+                
+                //アラートコントローラー（報告）
+                let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+                //報告アクション
+                let reportAction = UIAlertAction(title: "報告する", style: .destructive ){ (action) in
+                    //表示
+                    SVProgressHUD.showSuccess(withStatus: "この投稿を報告しました。ご協力ありがとうございました。")
+                    
+                    let postDataId = postData.id
+                    let reportUserId = postData.uid
+                    //辞書
+                    let blockUserIdDic = ["reportID": postDataId!,"reportUser": reportUserId!] as [String : Any]
+                    //保存
+                    posts.child("report").setValue(blockUserIdDic)
+                    print("DEBUG_PRINT: 報告を保存しました。")
+                    print(blockUserIdDic)
+
+                }
+                //アラートアクション（報告）のキャンセルボタン
+                let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel) { (action) in
+                    alertController.dismiss(animated: true, completion: nil)
+                }
+                //UIAlertControllerに報告Actionを追加
+                alertController.addAction(reportAction)
+                //UIAlertControllerにキャンセルActionを追加
+                alertController.addAction(cancelAction)
+                //アラートを表示
+                self.present(alertController, animated: true, completion: nil)
+                tableView.isEditing = false
+
+            })
+            //報告ボタンの色(赤)
+            reportButton.backgroundColor = UIColor.red
+            
+            //💡スワイプアクションブロックボタン
+            let blockButton: UIContextualAction = UIContextualAction(style: .normal, title: "ブロック",handler:  { (action: UIContextualAction, view: UIView, success :(Bool) -> Void )in
+            
+                //アラートアクション（ブロック）
+                let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+                let blockAction = UIAlertAction(title: "ブロックする", style: .destructive) { (action) in
+                    SVProgressHUD.showSuccess(withStatus: "このユーザーをブロックしました。")
+                    
+                //blockUserIdArrayに対象投稿のuidを追加
+                self.blockUserIdArray.append(postData.uid!)
+                    print("【blockUserIdArray】\(self.blockUserIdArray)")
+                    
+                //postArrayをフィルタリング（postArray.uidとpostData.uidが異なるもの(=ブロックIDじゃないもの)を残す）したもの
+                let filteringArray = self.postArray.filter{$0.uid != postData.uid}
+                    print("【filteringArray】:\(filteringArray)")
+                    
+                let sendNsData: NSData = try! NSKeyedArchiver.archivedData(withRootObject: postData, requiringSecureCoding: true) as NSData
+                
+                //UserDefaultsに保存
+                UserDefaults.standard.set(sendNsData, forKey: "filteringArray")
+
+                //postArrayの中身をfilteringArrayの中身にすり替える
+                self.postArray = filteringArray
+
+                // TableViewを再表示する
+                self.tableView.reloadData()
+
+                }
+                //アラートアクションのキャンセルボタン
+                let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel) { (action) in
+                    alertController.dismiss(animated: true, completion: nil)
+                }
+                //UIAlertControllerにブロックActionを追加
+                alertController.addAction(blockAction)
+                //UIAlertControllerにキャンセルActionを追加
+                alertController.addAction(cancelAction)
+                //アラートを表示
+                self.present(alertController, animated: true, completion: nil)
+                //テーブルビューの編集→切
+                tableView.isEditing = false
+            })
+            //ブロックボタンの色(青)
+            blockButton.backgroundColor = UIColor.blue
+            
+            return UISwipeActionsConfiguration(actions: [blockButton,reportButton])
+    
+    //投稿ユーザーが自分だったら、
+         } else {
+             //💡スワイプアクション削除ボタン
+             let deleteButton = UIContextualAction(style: .normal, title: "削除",handler:  { (action: UIContextualAction, view: UIView, success :(Bool) -> Void )in
+    
+                 //非同期的：タスクをディスパッチキューに追加したら、そのタスクの処理完了を待たずに次の行に移行する。
+                 DispatchQueue.main.async {
+                     let alertController = UIAlertController(title: "投稿を削除しますか？", message: nil, preferredStyle: .alert)
+                     //削除のキャンセル
+                     let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel) { (action) in
+                         alertController.dismiss(animated: true, completion: nil)
+                     }
+                     //削除をする
+                     let deleteAction = UIAlertAction(title: "OK", style: .default) { (action) in
+                         //firebaseのオブジェクトの削除
+                         posts.removeValue()
+                         print("削除しました")
+                         // 差し替えるため一度削除する
+                        var index: Int = 0
+                        //postArrayから一つずつ取り出す
+                        for post in self.postArray {
+                            //取り出したID(post.id)とポストデータのID（postData.id）が同じとき、
+                            if post.id == postData.id {
+                                //（一致したIDのうちの）最初のインデックスをindexとする
+                                index = self.postArray.firstIndex(of: post)!
+                                break
+                            }
+                        }
+                         //差し替えるため一度削除する
+                         self.postArray.remove(at: index)
+                         // TableViewを再表示する
+                         self.tableView.reloadData()
+                         
+                     }
+                     //UIAlertControllerにキャンセルアクションを追加
+                     alertController.addAction(cancelAction)
+                     //UIAlertControllerに削除アクションを追加
+                     alertController.addAction(deleteAction)
+                     //アラートを表示
+                     self.present(alertController,animated: true,completion: nil)
+         
+                     //テーブルビューの編集→切
+                     tableView.isEditing = false
+                 }
+     
+             })
+             //削除ボタンの色(赤)
+             deleteButton.backgroundColor = UIColor.red //色変更
+             
+             return UISwipeActionsConfiguration(actions:[deleteButton])
+             
+         }
+        
+
+     }
 
     // セル内のボタンがタップされた時に呼ばれるメソッド
     @objc func handleButton(_ sender: UIButton, forEvent event: UIEvent) {

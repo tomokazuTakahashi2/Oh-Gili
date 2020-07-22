@@ -12,6 +12,9 @@
 		641A16D724C46B110038A80B /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 641A16D524C46B110038A80B /* PostTableViewCell.xib */; };
 		641A16D924C46D7F0038A80B /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641A16D824C46D7F0038A80B /* Const.swift */; };
 		641A16DB24C46E030038A80B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 641A16DA24C46E030038A80B /* GoogleService-Info.plist */; };
+		644D656824C88D5C00D8BB67 /* NewLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644D656724C88D5C00D8BB67 /* NewLoginViewController.swift */; };
+		644D656A24C88D8E00D8BB67 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644D656924C88D8E00D8BB67 /* TermsViewController.swift */; };
+		644D656C24C88DC900D8BB67 /* LoginNextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644D656B24C88DC900D8BB67 /* LoginNextViewController.swift */; };
 		64C7420124C42D240018258E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7420024C42D240018258E /* AppDelegate.swift */; };
 		64C7420324C42D240018258E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7420224C42D240018258E /* SceneDelegate.swift */; };
 		64C7420524C42D240018258E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7420424C42D240018258E /* ViewController.swift */; };
@@ -33,6 +36,9 @@
 		641A16D524C46B110038A80B /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
 		641A16D824C46D7F0038A80B /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		641A16DA24C46E030038A80B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		644D656724C88D5C00D8BB67 /* NewLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLoginViewController.swift; sourceTree = "<group>"; };
+		644D656924C88D8E00D8BB67 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
+		644D656B24C88DC900D8BB67 /* LoginNextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNextViewController.swift; sourceTree = "<group>"; };
 		64C741FD24C42D240018258E /* Oh-Gili.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Oh-Gili.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		64C7420024C42D240018258E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		64C7420224C42D240018258E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -129,6 +135,9 @@
 			children = (
 				64C7420424C42D240018258E /* ViewController.swift */,
 				64C7421424C455BE0018258E /* LoginViewController.swift */,
+				644D656724C88D5C00D8BB67 /* NewLoginViewController.swift */,
+				644D656924C88D8E00D8BB67 /* TermsViewController.swift */,
+				644D656B24C88DC900D8BB67 /* LoginNextViewController.swift */,
 				64C7421624C455D30018258E /* HomeViewController.swift */,
 				64C7421824C455FA0018258E /* ImageSelectViewController.swift */,
 				64C7421A24C456120018258E /* PostViewController.swift */,
@@ -263,10 +272,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				64C7421924C455FA0018258E /* ImageSelectViewController.swift in Sources */,
+				644D656C24C88DC900D8BB67 /* LoginNextViewController.swift in Sources */,
 				641A16D324C46AE20038A80B /* PostData.swift in Sources */,
 				64C7421724C455D30018258E /* HomeViewController.swift in Sources */,
+				644D656A24C88D8E00D8BB67 /* TermsViewController.swift in Sources */,
 				64C7421B24C456120018258E /* PostViewController.swift in Sources */,
 				64C7421D24C4562C0018258E /* SettingViewController.swift in Sources */,
+				644D656824C88D5C00D8BB67 /* NewLoginViewController.swift in Sources */,
 				64C7421524C455BE0018258E /* LoginViewController.swift in Sources */,
 				64C7420524C42D240018258E /* ViewController.swift in Sources */,
 				641A16D624C46B110038A80B /* PostTableViewCell.swift in Sources */,
