@@ -96,7 +96,7 @@ class SettingViewController: UIViewController,UIImagePickerControllerDelegate, U
         displayNameTextField.text = ""
     }
 
-//MARK: - プロフィール画像変更ボタン
+//MARK: - プロフィール画像を選ぶボタン
     @IBAction func imageChoiceButton(_ sender: Any) {
         // ライブラリ（カメラロール）を指定してピッカーを開く
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
@@ -135,10 +135,7 @@ class SettingViewController: UIViewController,UIImagePickerControllerDelegate, U
         self.imageView.image = image!
         
          print("DEBUG_PRINT: 画像を編集して選択しました。")
-    
-    }
-//プロフィール画像をStorageに保存
-    @IBAction func imageSaveButton(_ sender: Any) {
+    //プロフィール画像をStorageに保存
         let storage = Storage.storage().reference()
         //プロフィール画像の変更
         let changeRequest = Auth.auth().currentUser!.createProfileChangeRequest()
@@ -178,20 +175,7 @@ class SettingViewController: UIViewController,UIImagePickerControllerDelegate, U
             }
              print("DEBUG_PRINT: 画像がstorageに保存されました。")
         }
-    }
-//MARK: - ログアウトボタンをタップしたときに呼ばれるメソッド
-    @IBAction func handleLogoutButton(_ sender: Any) {
-        // ログアウトする
-        try! Auth.auth().signOut()
-
-        // ログイン画面を表示する
-        let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "Login")
-        loginViewController?.modalPresentationStyle = .fullScreen
-        self.present(loginViewController!, animated: true, completion: nil)
-
-        // ログイン画面から戻ってきた時のためにホーム画面（index = 0）を選択している状態にしておく
-        let tabBarController = parent as! ESTabBarController
-        tabBarController.setSelectedIndex(0, animated: false)
-    }
     
+    }
+
 }

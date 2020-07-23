@@ -15,6 +15,9 @@
 		644D656824C88D5C00D8BB67 /* NewLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644D656724C88D5C00D8BB67 /* NewLoginViewController.swift */; };
 		644D656A24C88D8E00D8BB67 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644D656924C88D8E00D8BB67 /* TermsViewController.swift */; };
 		644D656C24C88DC900D8BB67 /* LoginNextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644D656B24C88DC900D8BB67 /* LoginNextViewController.swift */; };
+		644D656E24C89F4A00D8BB67 /* MyNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644D656D24C89F4A00D8BB67 /* MyNavigationViewController.swift */; };
+		644D657024C8A48B00D8BB67 /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644D656F24C8A48B00D8BB67 /* LogoutViewController.swift */; };
+		644D657224C9E45800D8BB67 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644D657124C9E45800D8BB67 /* NotificationViewController.swift */; };
 		64C7420124C42D240018258E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7420024C42D240018258E /* AppDelegate.swift */; };
 		64C7420324C42D240018258E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7420224C42D240018258E /* SceneDelegate.swift */; };
 		64C7420524C42D240018258E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7420424C42D240018258E /* ViewController.swift */; };
@@ -39,6 +42,9 @@
 		644D656724C88D5C00D8BB67 /* NewLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLoginViewController.swift; sourceTree = "<group>"; };
 		644D656924C88D8E00D8BB67 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
 		644D656B24C88DC900D8BB67 /* LoginNextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNextViewController.swift; sourceTree = "<group>"; };
+		644D656D24C89F4A00D8BB67 /* MyNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNavigationViewController.swift; sourceTree = "<group>"; };
+		644D656F24C8A48B00D8BB67 /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
+		644D657124C9E45800D8BB67 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		64C741FD24C42D240018258E /* Oh-Gili.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Oh-Gili.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		64C7420024C42D240018258E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		64C7420224C42D240018258E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -134,14 +140,17 @@
 			isa = PBXGroup;
 			children = (
 				64C7420424C42D240018258E /* ViewController.swift */,
+				644D656D24C89F4A00D8BB67 /* MyNavigationViewController.swift */,
 				64C7421424C455BE0018258E /* LoginViewController.swift */,
 				644D656724C88D5C00D8BB67 /* NewLoginViewController.swift */,
 				644D656924C88D8E00D8BB67 /* TermsViewController.swift */,
 				644D656B24C88DC900D8BB67 /* LoginNextViewController.swift */,
 				64C7421624C455D30018258E /* HomeViewController.swift */,
+				644D657124C9E45800D8BB67 /* NotificationViewController.swift */,
 				64C7421824C455FA0018258E /* ImageSelectViewController.swift */,
 				64C7421A24C456120018258E /* PostViewController.swift */,
 				64C7421C24C4562C0018258E /* SettingViewController.swift */,
+				644D656F24C8A48B00D8BB67 /* LogoutViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -272,6 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				64C7421924C455FA0018258E /* ImageSelectViewController.swift in Sources */,
+				644D656E24C89F4A00D8BB67 /* MyNavigationViewController.swift in Sources */,
 				644D656C24C88DC900D8BB67 /* LoginNextViewController.swift in Sources */,
 				641A16D324C46AE20038A80B /* PostData.swift in Sources */,
 				64C7421724C455D30018258E /* HomeViewController.swift in Sources */,
@@ -282,8 +292,10 @@
 				64C7421524C455BE0018258E /* LoginViewController.swift in Sources */,
 				64C7420524C42D240018258E /* ViewController.swift in Sources */,
 				641A16D624C46B110038A80B /* PostTableViewCell.swift in Sources */,
+				644D657224C9E45800D8BB67 /* NotificationViewController.swift in Sources */,
 				64C7420124C42D240018258E /* AppDelegate.swift in Sources */,
 				64C7420324C42D240018258E /* SceneDelegate.swift in Sources */,
+				644D657024C8A48B00D8BB67 /* LogoutViewController.swift in Sources */,
 				641A16D924C46D7F0038A80B /* Const.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

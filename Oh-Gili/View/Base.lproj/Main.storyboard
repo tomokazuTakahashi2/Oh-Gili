@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="emc-ZA-sMM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Oh-Gili-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="View" id="BYZ-38-t0r" customClass="ViewController" customModule="Oh_Gili" customModuleProvider="target" sceneMemberID="viewController">
@@ -17,10 +17,11 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Oh-Gili" id="GOv-XA-YCZ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-58" y="-127"/>
+            <point key="canvasLocation" x="850.72463768115949" y="-127.23214285714285"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="Wba-AS-TFA">
@@ -75,7 +76,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bRS-5c-cHT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="745" y="-127"/>
+            <point key="canvasLocation" x="1655.072463768116" y="-127.23214285714285"/>
         </scene>
         <!--Login Next View Controller-->
         <scene sceneID="cuy-3V-tXs">
@@ -143,7 +144,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k8y-4K-aQn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1859" y="-579"/>
+            <point key="canvasLocation" x="2768.1159420289855" y="-579.24107142857144"/>
         </scene>
         <!--Terms View Controller-->
         <scene sceneID="SVz-sg-rbn">
@@ -327,7 +328,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ud-bN-Obp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1848" y="166"/>
+            <point key="canvasLocation" x="2757.971014492754" y="165.40178571428569"/>
         </scene>
         <!--New Login View Controller-->
         <scene sceneID="YhR-Nr-tvv">
@@ -405,7 +406,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7EN-tW-Eea" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2691" y="165"/>
+            <point key="canvasLocation" x="3600.0000000000005" y="164.73214285714286"/>
         </scene>
         <!--Image Select View Controller-->
         <scene sceneID="BCU-eo-EkJ">
@@ -574,16 +575,6 @@
                                     <action selector="handleChangeButton:" destination="Uvy-lx-yhQ" eventType="touchUpInside" id="B4j-wT-5Ac"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q1i-uD-fRC">
-                                <rect key="frame" x="57" y="792" width="300" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="WDm-uH-QNq"/>
-                                </constraints>
-                                <state key="normal" title="ログアウト" backgroundImage="btn"/>
-                                <connections>
-                                    <action selector="handleLogoutButton:" destination="Uvy-lx-yhQ" eventType="touchUpInside" id="Atg-sB-mCS"/>
-                                </connections>
-                            </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.crop.square" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="oS9-f4-rLx">
                                 <rect key="frame" x="107" y="230" width="200" height="197.5"/>
                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -591,6 +582,11 @@
                                     <constraint firstAttribute="width" secondItem="oS9-f4-rLx" secondAttribute="height" multiplier="1:1" id="jsl-5E-jKY"/>
                                     <constraint firstAttribute="width" constant="200" id="lm4-P3-PE9"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="100"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JPA-uS-LkQ">
                                 <rect key="frame" x="57" y="439" width="300" height="40"/>
@@ -611,32 +607,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iep-su-wEE">
-                                <rect key="frame" x="57" y="489" width="300" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="GYn-Y6-xbz"/>
-                                </constraints>
-                                <state key="normal" title="プロフィール画像を決定" backgroundImage="btn"/>
-                                <connections>
-                                    <action selector="imageSaveButton:" destination="Uvy-lx-yhQ" eventType="touchUpInside" id="i6g-57-m0a"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="gqb-0f-Ugc" firstAttribute="top" secondItem="jTP-b6-1LV" secondAttribute="bottom" constant="10" id="3P8-Yp-97m"/>
                             <constraint firstItem="n7I-xW-eHq" firstAttribute="top" secondItem="gqb-0f-Ugc" secondAttribute="bottom" constant="10" id="JkH-Qh-7PJ"/>
-                            <constraint firstItem="9xA-4R-MTV" firstAttribute="bottom" secondItem="Q1i-uD-fRC" secondAttribute="bottom" constant="30" id="NB2-kE-FU7"/>
                             <constraint firstItem="oS9-f4-rLx" firstAttribute="top" secondItem="n7I-xW-eHq" secondAttribute="bottom" constant="20" id="R59-Hb-I23"/>
-                            <constraint firstItem="iep-su-wEE" firstAttribute="top" secondItem="JPA-uS-LkQ" secondAttribute="bottom" constant="10" id="VuH-pz-hDa"/>
                             <constraint firstItem="JPA-uS-LkQ" firstAttribute="centerX" secondItem="GA1-29-cI9" secondAttribute="centerX" id="XKQ-aC-xgZ"/>
                             <constraint firstItem="gqb-0f-Ugc" firstAttribute="centerX" secondItem="GA1-29-cI9" secondAttribute="centerX" id="dW9-4g-SPp"/>
                             <constraint firstItem="jTP-b6-1LV" firstAttribute="centerX" secondItem="GA1-29-cI9" secondAttribute="centerX" id="ooL-8f-b0A"/>
                             <constraint firstItem="oS9-f4-rLx" firstAttribute="centerX" secondItem="GA1-29-cI9" secondAttribute="centerX" id="rBn-xk-HpY"/>
                             <constraint firstItem="n7I-xW-eHq" firstAttribute="centerX" secondItem="GA1-29-cI9" secondAttribute="centerX" id="wI0-37-LRf"/>
-                            <constraint firstItem="Q1i-uD-fRC" firstAttribute="centerX" secondItem="GA1-29-cI9" secondAttribute="centerX" id="whU-lE-9r7"/>
                             <constraint firstItem="JPA-uS-LkQ" firstAttribute="top" secondItem="oS9-f4-rLx" secondAttribute="bottom" constant="10" id="wiP-fK-wXk"/>
-                            <constraint firstItem="iep-su-wEE" firstAttribute="centerX" secondItem="GA1-29-cI9" secondAttribute="centerX" id="xBc-qu-4dG"/>
                             <constraint firstItem="jTP-b6-1LV" firstAttribute="top" secondItem="9xA-4R-MTV" secondAttribute="top" constant="30" id="ylv-UJ-QDm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9xA-4R-MTV"/>
@@ -650,6 +632,62 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cVj-7f-eKa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2277" y="871"/>
+        </scene>
+        <!--Logout View Controller-->
+        <scene sceneID="RjP-wm-ccG">
+            <objects>
+                <viewController storyboardIdentifier="Logout" id="sJz-5u-woG" customClass="LogoutViewController" customModule="Oh_Gili" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lcs-u8-Voz">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q1i-uD-fRC">
+                                <rect key="frame" x="57" y="374" width="300" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="WDm-uH-QNq"/>
+                                </constraints>
+                                <state key="normal" title="ログアウト" backgroundImage="btn"/>
+                                <connections>
+                                    <action selector="handleLogoutButton:" destination="sJz-5u-woG" eventType="touchUpInside" id="4BN-uP-cgz"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logout" translatesAutoresizingMaskIntoConstraints="NO" id="Mtz-KO-YWV">
+                                <rect key="frame" x="107" y="144" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="U7X-9p-8Ff"/>
+                                    <constraint firstAttribute="height" constant="200" id="xy5-ak-Fys"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Mtz-KO-YWV" firstAttribute="centerX" secondItem="lcs-u8-Voz" secondAttribute="centerX" id="33v-3J-geK"/>
+                            <constraint firstItem="Q1i-uD-fRC" firstAttribute="centerX" secondItem="lcs-u8-Voz" secondAttribute="centerX" id="CX6-pq-4ni"/>
+                            <constraint firstItem="Q1i-uD-fRC" firstAttribute="top" secondItem="Mtz-KO-YWV" secondAttribute="bottom" constant="30" id="G3f-g4-SIH"/>
+                            <constraint firstItem="Q1i-uD-fRC" firstAttribute="centerX" secondItem="lcs-u8-Voz" secondAttribute="centerX" id="RtO-zt-aCi"/>
+                            <constraint firstItem="Mtz-KO-YWV" firstAttribute="top" secondItem="8fh-TN-G6l" secondAttribute="top" constant="100" id="YbB-tI-2u7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="8fh-TN-G6l"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="elt-hg-1eB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3036" y="871"/>
+        </scene>
+        <!--Notification View Controller-->
+        <scene sceneID="cQm-t3-qkh">
+            <objects>
+                <viewController storyboardIdentifier="Notification" id="8Mo-gd-1zs" customClass="NotificationViewController" customModule="Oh_Gili" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gmf-sn-kFj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="aV9-EQ-gQH"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gWg-qB-wc4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-845" y="871"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="AUe-3d-Vbu">
@@ -681,11 +719,30 @@
             </objects>
             <point key="canvasLocation" x="-58" y="871"/>
         </scene>
+        <!--MyUI Navigation Controller-->
+        <scene sceneID="DS6-jV-TTt">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="emc-ZA-sMM" customClass="MyUINavigationController" customModule="Oh_Gili" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bCK-U5-bRD">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="f36-ch-vnt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cGl-LD-rZ5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-59.420289855072468" y="-127.23214285714285"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Oh-Giliロゴ" width="400" height="187"/>
         <image name="btn" width="300" height="40"/>
         <image name="checkmark.rectangle" catalog="system" width="64" height="46"/>
+        <image name="logout" width="225" height="225"/>
         <image name="person.crop.square" catalog="system" width="64" height="56"/>
     </resources>
 </document>
