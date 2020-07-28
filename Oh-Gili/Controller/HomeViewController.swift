@@ -24,12 +24,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("DEBUG_PRINT: viewDidLoad")
 
         tableView.delegate = self
         tableView.dataSource = self
-
-        // テーブルセルのタップを無効にする
-        tableView.allowsSelection = false
 
         let nib = UINib(nibName: "PostTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "Cell")
@@ -121,13 +119,40 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
         // セル内のボタンのアクションをソースコードで設定する
         cell.likeButton.addTarget(self, action:#selector(handleButton(_:forEvent:)), for: .touchUpInside)
+        cell.zabutonButton.addTarget(self, action:#selector(handleZabutonButton(_:forEvent:)), for: .touchUpInside)
 
         return cell
     }
+    //セルの高さ
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 500
+        return 250
     
     }
+    //セルをタップしたら画面遷移
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+      
+        //次ページにデータを送信するもの
+        let postData = postArray[indexPath.row]
+        postDataToSend = postData
+        
+        //画面遷移
+        performSegue(withIdentifier: "cellSegue",sender: nil)
+        
+        // セルの選択を解除
+        tableView.deselectRow(at: indexPath, animated: true)
+
+    }
+
+        var postDataToSend: PostData?
+
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if segue.identifier == "cellSegue" {
+                let commentViewController = segue.destination as! CommentViewController
+                if let postData = postDataToSend {
+                    commentViewController.setPostData(postData)
+                }
+            }
+        }
     
     //自分以外＝>報告・ブロックする
     internal func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -309,7 +334,41 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let postRef = Database.database().reference().child(Const.PostPath).child(postData.id!)
             let likes = ["likes": postData.likes]
             postRef.updateChildValues(likes)
+        }
+    }
+    // セル内のボタンがタップされた時に呼ばれるメソッド
+    @objc func handleZabutonButton(_ sender: UIButton, forEvent event: UIEvent) {
+        print("DEBUG_PRINT: likeボタンがタップされました。")
 
+        // タップされたセルのインデックスを求める
+        let touch = event.allTouches?.first
+        let point = touch!.location(in: self.tableView)
+        let indexPath = tableView.indexPathForRow(at: point)
+
+        // 配列からタップされたインデックスのデータを取り出す
+        let postData = postArray[indexPath!.row]
+
+        // Firebaseに保存するデータの準備
+        if let uid = Auth.auth().currentUser?.uid {
+            if postData.isZabuton {
+                // すでにいいねをしていた場合はいいねを解除するためIDを取り除く
+                var index = -1
+                for zabutonId in postData.zabutons {
+                    if zabutonId == uid {
+                        // 削除するためにインデックスを保持しておく
+                        index = postData.zabutons.firstIndex(of: zabutonId)!
+                        break
+                    }
+                }
+                postData.zabutons.remove(at: index)
+            } else {
+                postData.zabutons.append(uid)
+            }
+
+            // 増えたzabutonsをFirebaseに保存する
+            let postRef = Database.database().reference().child(Const.PostPath).child(postData.id!)
+            let zabutons = ["zabutons": postData.zabutons]
+            postRef.updateChildValues(zabutons)
         }
     }
 

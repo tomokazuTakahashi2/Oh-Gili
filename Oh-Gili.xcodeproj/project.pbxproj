@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		410A8D484D953695E8F7DDDB /* Pods_Oh_Gili.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C7FD6B763C1C0A4F66C8B1E /* Pods_Oh_Gili.framework */; };
 		641A16D324C46AE20038A80B /* PostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641A16D224C46AE20038A80B /* PostData.swift */; };
 		641A16D624C46B110038A80B /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641A16D424C46B110038A80B /* PostTableViewCell.swift */; };
 		641A16D724C46B110038A80B /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 641A16D524C46B110038A80B /* PostTableViewCell.xib */; };
@@ -18,6 +19,9 @@
 		644D656E24C89F4A00D8BB67 /* MyNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644D656D24C89F4A00D8BB67 /* MyNavigationViewController.swift */; };
 		644D657024C8A48B00D8BB67 /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644D656F24C8A48B00D8BB67 /* LogoutViewController.swift */; };
 		644D657224C9E45800D8BB67 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644D657124C9E45800D8BB67 /* NotificationViewController.swift */; };
+		644D657424CA055C00D8BB67 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644D657324CA055C00D8BB67 /* CommentViewController.swift */; };
+		644D657724CA05F600D8BB67 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644D657524CA05F600D8BB67 /* CommentTableViewCell.swift */; };
+		644D657824CA05F600D8BB67 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 644D657624CA05F600D8BB67 /* CommentTableViewCell.xib */; };
 		64C7420124C42D240018258E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7420024C42D240018258E /* AppDelegate.swift */; };
 		64C7420324C42D240018258E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7420224C42D240018258E /* SceneDelegate.swift */; };
 		64C7420524C42D240018258E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7420424C42D240018258E /* ViewController.swift */; };
@@ -29,7 +33,6 @@
 		64C7421924C455FA0018258E /* ImageSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7421824C455FA0018258E /* ImageSelectViewController.swift */; };
 		64C7421B24C456120018258E /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7421A24C456120018258E /* PostViewController.swift */; };
 		64C7421D24C4562C0018258E /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7421C24C4562C0018258E /* SettingViewController.swift */; };
-		A92700832C724B038BC8D70A /* Pods_Oh_Gili.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78B1D6B0F3CE57053745EBC4 /* Pods_Oh_Gili.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +48,9 @@
 		644D656D24C89F4A00D8BB67 /* MyNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNavigationViewController.swift; sourceTree = "<group>"; };
 		644D656F24C8A48B00D8BB67 /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
 		644D657124C9E45800D8BB67 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		644D657324CA055C00D8BB67 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		644D657524CA05F600D8BB67 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		644D657624CA05F600D8BB67 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
 		64C741FD24C42D240018258E /* Oh-Gili.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Oh-Gili.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		64C7420024C42D240018258E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		64C7420224C42D240018258E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,7 +64,7 @@
 		64C7421824C455FA0018258E /* ImageSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelectViewController.swift; sourceTree = "<group>"; };
 		64C7421A24C456120018258E /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		64C7421C24C4562C0018258E /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
-		78B1D6B0F3CE57053745EBC4 /* Pods_Oh_Gili.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Oh_Gili.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C7FD6B763C1C0A4F66C8B1E /* Pods_Oh_Gili.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Oh_Gili.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADB1FED8E03374AE34E0E682 /* Pods-Oh-Gili.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Oh-Gili.debug.xcconfig"; path = "Target Support Files/Pods-Oh-Gili/Pods-Oh-Gili.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -67,7 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A92700832C724B038BC8D70A /* Pods_Oh_Gili.framework in Frameworks */,
+				410A8D484D953695E8F7DDDB /* Pods_Oh_Gili.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +138,8 @@
 				64C7420624C42D240018258E /* Main.storyboard */,
 				641A16D424C46B110038A80B /* PostTableViewCell.swift */,
 				641A16D524C46B110038A80B /* PostTableViewCell.xib */,
+				644D657524CA05F600D8BB67 /* CommentTableViewCell.swift */,
+				644D657624CA05F600D8BB67 /* CommentTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -146,6 +154,7 @@
 				644D656924C88D8E00D8BB67 /* TermsViewController.swift */,
 				644D656B24C88DC900D8BB67 /* LoginNextViewController.swift */,
 				64C7421624C455D30018258E /* HomeViewController.swift */,
+				644D657324CA055C00D8BB67 /* CommentViewController.swift */,
 				644D657124C9E45800D8BB67 /* NotificationViewController.swift */,
 				64C7421824C455FA0018258E /* ImageSelectViewController.swift */,
 				64C7421A24C456120018258E /* PostViewController.swift */,
@@ -158,7 +167,7 @@
 		EFCCE1201ECC5085B831028D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				78B1D6B0F3CE57053745EBC4 /* Pods_Oh_Gili.framework */,
+				9C7FD6B763C1C0A4F66C8B1E /* Pods_Oh_Gili.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -174,7 +183,7 @@
 				64C741F924C42D240018258E /* Sources */,
 				64C741FA24C42D240018258E /* Frameworks */,
 				64C741FB24C42D240018258E /* Resources */,
-				90CF7F1617D2BC7430A12BF3 /* [CP] Embed Pods Frameworks */,
+				77EF3F21386B570B92DAB3CC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -224,6 +233,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				64C7420D24C42D260018258E /* LaunchScreen.storyboard in Resources */,
+				644D657824CA05F600D8BB67 /* CommentTableViewCell.xib in Resources */,
 				64C7420A24C42D260018258E /* Assets.xcassets in Resources */,
 				641A16DB24C46E030038A80B /* GoogleService-Info.plist in Resources */,
 				64C7420824C42D240018258E /* Main.storyboard in Resources */,
@@ -234,7 +244,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		90CF7F1617D2BC7430A12BF3 /* [CP] Embed Pods Frameworks */ = {
+		77EF3F21386B570B92DAB3CC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -288,6 +298,7 @@
 				644D656A24C88D8E00D8BB67 /* TermsViewController.swift in Sources */,
 				64C7421B24C456120018258E /* PostViewController.swift in Sources */,
 				64C7421D24C4562C0018258E /* SettingViewController.swift in Sources */,
+				644D657424CA055C00D8BB67 /* CommentViewController.swift in Sources */,
 				644D656824C88D5C00D8BB67 /* NewLoginViewController.swift in Sources */,
 				64C7421524C455BE0018258E /* LoginViewController.swift in Sources */,
 				64C7420524C42D240018258E /* ViewController.swift in Sources */,
@@ -295,6 +306,7 @@
 				644D657224C9E45800D8BB67 /* NotificationViewController.swift in Sources */,
 				64C7420124C42D240018258E /* AppDelegate.swift in Sources */,
 				64C7420324C42D240018258E /* SceneDelegate.swift in Sources */,
+				644D657724CA05F600D8BB67 /* CommentTableViewCell.swift in Sources */,
 				644D657024C8A48B00D8BB67 /* LogoutViewController.swift in Sources */,
 				641A16D924C46D7F0038A80B /* Const.swift in Sources */,
 			);

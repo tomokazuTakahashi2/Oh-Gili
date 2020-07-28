@@ -13,6 +13,8 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var postImageView: UIImageView!
+    @IBOutlet weak var zabutonButton: UIButton!
+    @IBOutlet weak var zabutonLabel: UILabel!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var likeLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -35,25 +37,39 @@ class PostTableViewCell: UITableViewCell {
         
         self.postImageView.image = postData.image
 
+        if postData.caption != nil{
         self.captionLabel.text = "\(postData.caption!)"
+        }
         
-        let likeNumber = postData.likes.count
-        
+        if postData.name != nil{
         self.nameLabel.text = "\(postData.name!)"
-        
-        likeLabel.text = "\(likeNumber)"
+        }
 
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        if postData.date != nil{
         let dateString = formatter.string(from: postData.date!)
         self.dateLabel.text = dateString
+        }
 
-        if postData.isLiked {
+        if postData.isZabuton {
             let buttonImage = UIImage(named: "座布団")
-            self.likeButton.setImage(buttonImage, for: .normal)
+            self.zabutonButton.setImage(buttonImage, for: .normal)
         } else {
             let buttonImage = UIImage(named: "座布団（白黒）")
+            self.zabutonButton.setImage(buttonImage, for: .normal)
+        }
+        if postData.isLiked {
+            let buttonImage = UIImage(named: "like_exist")
+            self.likeButton.setImage(buttonImage, for: .normal)
+        } else {
+            let buttonImage = UIImage(named: "like_none")
             self.likeButton.setImage(buttonImage, for: .normal)
         }
+        let likeNumber = postData.likes.count
+        likeLabel.text = "\(likeNumber)"
+        let zabutonNumber = postData.zabutons.count
+        zabutonLabel.text = "\(zabutonNumber)"
     }
 }
+
