@@ -32,10 +32,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Oh-Giliロゴ" translatesAutoresizingMaskIntoConstraints="NO" id="Iua-9Y-Nca">
-                                <rect key="frame" x="10" y="144" width="394" height="374"/>
+                                <rect key="frame" x="10" y="144" width="394" height="187.00000000000003"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nJC-6n-RsM">
-                                <rect key="frame" x="-93" y="592" width="600" height="80"/>
+                                <rect key="frame" x="57" y="672" width="300" height="40"/>
                                 <color key="backgroundColor" red="0.39291743950000002" green="0.87195125240000004" blue="0.38950947720000001" alpha="0.94887093320000004" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="REs-D8-k9B"/>
@@ -46,7 +46,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iMY-dw-LrO">
-                                <rect key="frame" x="-93" y="682" width="600" height="80"/>
+                                <rect key="frame" x="57" y="722" width="300" height="40"/>
                                 <color key="backgroundColor" red="0.39291743950000002" green="0.87195125240000004" blue="0.38950947720000001" alpha="0.94887093320000004" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="esS-1w-Tbf"/>
