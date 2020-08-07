@@ -32,10 +32,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Oh-Giliロゴ" translatesAutoresizingMaskIntoConstraints="NO" id="Iua-9Y-Nca">
-                                <rect key="frame" x="10" y="144" width="394" height="187.00000000000003"/>
+                                <rect key="frame" x="10" y="144" width="394" height="374"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nJC-6n-RsM">
-                                <rect key="frame" x="57" y="672" width="300" height="40"/>
+                                <rect key="frame" x="-93" y="592" width="600" height="80"/>
                                 <color key="backgroundColor" red="0.39291743950000002" green="0.87195125240000004" blue="0.38950947720000001" alpha="0.94887093320000004" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="REs-D8-k9B"/>
@@ -46,7 +46,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iMY-dw-LrO">
-                                <rect key="frame" x="57" y="722" width="300" height="40"/>
+                                <rect key="frame" x="-93" y="682" width="600" height="80"/>
                                 <color key="backgroundColor" red="0.39291743950000002" green="0.87195125240000004" blue="0.38950947720000001" alpha="0.94887093320000004" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="esS-1w-Tbf"/>
@@ -790,6 +790,9 @@
                                                     <constraint firstAttribute="width" constant="30" id="KMj-Fb-9Qb"/>
                                                 </constraints>
                                                 <state key="normal" title="Button" image="座布団"/>
+                                                <connections>
+                                                    <action selector="zabutonButton:" destination="lUa-uV-2Ll" eventType="touchUpInside" id="Ps1-89-iB3"/>
+                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TVc-oC-dzi">
                                                 <rect key="frame" x="112" y="375.5" width="30" height="30"/>
@@ -808,6 +811,9 @@
                                                     <constraint firstAttribute="height" constant="30" id="pXI-Ux-29c"/>
                                                 </constraints>
                                                 <state key="normal" title="Button" image="like_exist"/>
+                                                <connections>
+                                                    <action selector="handleLikeButton:" destination="lUa-uV-2Ll" eventType="touchUpInside" id="qCo-e0-6MM"/>
+                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yrV-kr-s5W">
                                                 <rect key="frame" x="192" y="375.5" width="30" height="30"/>
@@ -933,13 +939,13 @@
                         <outlet property="commentTextField" destination="dck-9d-YIm" id="Der-tr-LFU"/>
                         <outlet property="dateLabel" destination="PMV-VF-FvR" id="W3T-j7-3Ni"/>
                         <outlet property="imageView" destination="2ga-cb-VwI" id="Syl-TS-0wn"/>
-                        <outlet property="likeButton" destination="3Qi-0A-lTW" id="9aW-np-yhs"/>
+                        <outlet property="likeButton" destination="3Qi-0A-lTW" id="T1W-Yd-9F7"/>
                         <outlet property="likeCount" destination="yrV-kr-s5W" id="lJL-IH-01e"/>
                         <outlet property="nameLabel" destination="vbr-bm-jPW" id="PKB-NV-hc9"/>
                         <outlet property="profileImage" destination="xvv-ng-8iW" id="PhE-ab-UnP"/>
                         <outlet property="scrollView" destination="NGS-Lm-kAT" id="9Tk-Lb-W0N"/>
                         <outlet property="titleLabel" destination="4VI-54-cPZ" id="RE2-aG-JIQ"/>
-                        <outlet property="zabutonButton" destination="VCp-tN-XEc" id="4OC-t4-8In"/>
+                        <outlet property="zabutonButton" destination="VCp-tN-XEc" id="pbC-vo-gve"/>
                         <outlet property="zabutonLabel" destination="TVc-oC-dzi" id="5oG-p1-fOv"/>
                     </connections>
                 </viewController>

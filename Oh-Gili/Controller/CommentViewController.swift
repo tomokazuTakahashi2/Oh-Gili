@@ -459,4 +459,92 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
        
         return true
     }
+    //ハートボタン
+    @IBAction func handleLikeButton(_ sender: Any) {
+        //前ページからインデックス番号を継承
+        guard let postData = postDataReceived else {return}
+        
+        //カレントユーザーのIDをuidとする
+        if let uid = Auth.auth().currentUser?.uid {
+            //もしイイね済みだったら、
+            if postData.isLiked {
+                // -1をindexとする
+                var index = -1
+                //postData.likes配列から一つずつ取り出したものをlikeIdとする
+                for likeId in postData.likes {
+                    //uidとlikeIDが同じであれば、
+                    if likeId == uid {
+                        // postData.likes配列のファーストインデックスを-1(index)とする
+                        index = postData.likes.firstIndex(of: likeId)!
+                        //ループを抜ける
+                        break
+                    }
+                }
+                //postData.likes配列のindexを削除する
+                postData.likes.remove(at: index)
+                let buttonImage = UIImage(named: "like_none")
+                self.likeButton.setImage(buttonImage, for: .normal)
+                postData.isLiked = false
+            //イイねされていなかったら、
+            } else {
+                //postData.likes配列にuidを追加する
+                postData.likes.append(uid)
+                let buttonImage = UIImage(named: "like_exist")
+                self.likeButton.setImage(buttonImage, for: .normal)
+                postData.isLiked = true
+            }
+            
+            let likeNumber = postData.likes.count
+            self.likeCount.text = "\(likeNumber)"
+
+            // 増えたlikesをFirebaseに保存する
+            let postRef = Database.database().reference().child(Const.PostPath).child(postData.id!)
+            let likes = ["likes": postData.likes]
+            postRef.updateChildValues(likes)
+        }
+    }
+    
+    @IBAction func zabutonButton(_ sender: Any) {
+        //前ページからインデックス番号を継承
+        guard let postData = postDataReceived else {return}
+        
+        //カレントユーザーのIDをuidとする
+        if let uid = Auth.auth().currentUser?.uid {
+            //もし座布団済みだったら、
+            if postData.isZabuton {
+                // -1をindexとする
+                var index = -1
+                //postData.zabutons配列から一つずつ取り出したものをzabutonIdとする
+                for zabutonId in postData.zabutons {
+                    //uidとzabutonIDが同じであれば、
+                    if zabutonId == uid {
+                        // postData.zabutons配列のファーストインデックスを-1(index)とする
+                        index = postData.zabutons.firstIndex(of: zabutonId)!
+                        //ループを抜ける
+                        break
+                    }
+                }
+                //postData.zabutons配列のindexを削除する
+                postData.zabutons.remove(at: index)
+                let buttonImage = UIImage(named: "座布団（白黒）")
+                self.zabutonButton.setImage(buttonImage, for: .normal)
+                postData.isZabuton = false
+            //イイねされていなかったら、
+            } else {
+                //postData.zabutons配列にuidを追加する
+                postData.zabutons.append(uid)
+                let buttonImage = UIImage(named: "座布団")
+                self.zabutonButton.setImage(buttonImage, for: .normal)
+                postData.isZabuton = true
+            }
+            
+            let likeNumber = postData.zabutons.count
+            self.zabutonLabel.text = "\(likeNumber)"
+
+            // 増えたzabutonsをFirebaseに保存する
+            let postRef = Database.database().reference().child(Const.PostPath).child(postData.id!)
+            let zabutons = ["zabutons": postData.zabutons]
+            postRef.updateChildValues(zabutons)
+        }
+    }
 }
