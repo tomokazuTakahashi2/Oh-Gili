@@ -33,7 +33,9 @@ class PostTableViewCell: UITableViewCell {
 
     func setPostData(_ postData: PostData) {
         
+        if postData.profileImage != nil{
         self.profileImageView.image = postData.profileImage
+        }
         
         self.postImageView.image = postData.image
 

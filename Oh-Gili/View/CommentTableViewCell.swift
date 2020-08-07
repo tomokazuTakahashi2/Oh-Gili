@@ -13,8 +13,8 @@ class CommentTableViewCell: UITableViewCell {
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var likeButton: UIButton!
-    @IBOutlet weak var likeCount: UILabel!
+    @IBOutlet weak var zabutonButton: UIButton!
+    @IBOutlet weak var zabutonCount: UILabel!
     @IBOutlet weak var textView: UITextView!
     
     override func awakeFromNib() {
@@ -45,16 +45,20 @@ class CommentTableViewCell: UITableViewCell {
             let dateString = formatter.string(from: postData.commentDate!)
             self.dateLabel.text = dateString
         }
-        //イイねカウント
-        let likeNumber = postData.commentLikes.count
-        likeCount.text = "\(likeNumber)"
-        //イイねボタン
-        if postData.commentLiked {
-            let buttonImage = UIImage(named: "like_exist")
-            self.likeButton.setImage(buttonImage, for: .normal)
+        //座布団カウント
+        if postData.commentZabutonArray.count != 0{
+            let likeNumber = postData.commentZabutonArray.count
+            zabutonCount.text = "\(likeNumber)"
+        }else{
+            zabutonCount.text = "\(0)"
+        }
+        //座布団ボタン
+        if postData.zabutonAlready {
+            let buttonImage = UIImage(named: "座布団")
+            self.zabutonButton.setImage(buttonImage, for: .normal)
         } else {
-            let buttonImage = UIImage(named: "like_none")
-            self.likeButton.setImage(buttonImage, for: .normal)
+            let buttonImage = UIImage(named: "座布団（白黒）")
+            self.zabutonButton.setImage(buttonImage, for: .normal)
         }
         
         //コメント

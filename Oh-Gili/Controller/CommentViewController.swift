@@ -127,14 +127,14 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
         let likeNumber = postData.likes.count
         self.likeCount.text = "\(likeNumber)"
         
-        self.commentCount.text = "\(commentPostArray.count + 1)"
+        self.commentCount.text = "\(0)"
         
         print(commentPostArray)
 
 
         if Auth.auth().currentUser != nil {
             if self.observing == false {
-                // 要素が追加されたらpostArrayに追加してTableViewを再表示する
+                // 要素が追加されたらcommentPostArrayに追加してTableViewを再表示する
                 let postsRef = Database.database().reference().child(Const.PostPath).child(postData.id!).child("comment")
                 postsRef.observe(.childAdded, with: { snapshot in
                     print("DEBUG_PRINT: .childAddedイベントが発生しました。")
@@ -148,7 +148,7 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
                         self.commentTableView.reloadData()
                     }
                 })
-                // 要素が変更されたら該当のデータをpostArrayから一度削除した後に新しいデータを追加してTableViewを再表示する
+                // 要素が変更されたら該当のデータをcommentPostArrayから一度削除した後に新しいデータを追加してTableViewを再表示する
                 postsRef.observe(.childChanged, with: { snapshot in
                     print("DEBUG_PRINT: .childChangedイベントが発生しました。")
 
@@ -214,21 +214,20 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
         // セルを取得してデータを設定する
         cell.setPostData(commentPostArray[indexPath.row])
         // セル内のボタンのアクションをソースコードで設定する
-        cell.likeButton.addTarget(self, action:#selector(heartButton(_:forEvent:)), for: .touchUpInside)
-        
+        cell.zabutonButton.addTarget(self, action:#selector(handleZabutonButton(_:forEvent:)), for: .touchUpInside)
         
         return cell
         
     }
         //自分以外＝>報告・ブロックする
-        internal func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    internal func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
             //タップされたセルのポストデータ
-         let postData = postDataReceived!
+        let postData = postDataReceived!
   
 
         let indexData = commentPostArray[indexPath.row]
         let postRef = Database.database().reference().child(Const.PostPath)
-            let posts = postRef.child(postData.id!).child("comment").child(indexData.id!)
+        let posts = postRef.child(postData.id!).child("comment").child(indexData.id!)
 
         //もし、投稿ユーザーIDが自分のIDじゃなかったら、
         if postData.uid != Auth.auth().currentUser?.uid{
@@ -242,14 +241,14 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
                     //表示
                     SVProgressHUD.showSuccess(withStatus: "この投稿を報告しました。ご協力ありがとうございました。")
                     
-                    let postDataId = postData.id
+                    let snapshotKey = postData.id
                     let reportUserId = postData.uid
                     //辞書
-                    let blockUserIdDic = ["reportID": postDataId!,"reportUser": reportUserId!] as [String : Any]
-                    //保存
-                    posts.child("report").setValue(blockUserIdDic)
+                    let reportDic = ["reportID": snapshotKey!,"reportUser": reportUserId!] as [String : Any]
+                    //Firebaseに保存
+                    posts.child("report").setValue(reportDic)
                     print("DEBUG_PRINT: 報告を保存しました。")
-                    print(blockUserIdDic)
+                    print(reportDic)
 
                 }
                 //アラートアクション（報告）のキャンセルボタン
@@ -372,7 +371,7 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
     
     //MARK:-コメントテーブルビューのイイねボタン
     // セル内のボタンがタップされた時に呼ばれるメソッド
-    @objc func heartButton(_ sender: UIButton, forEvent event: UIEvent) {
+    @objc func handleZabutonButton(_ sender: UIButton, forEvent event: UIEvent) {
         print("DEBUG_PRINT: likeボタンがタップされました。")
         
         guard let postData = postDataReceived else {return}
@@ -387,24 +386,30 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
 
         // Firebaseに保存するデータの準備
         if let uid = Auth.auth().currentUser?.uid {
-            if indexData.commentLiked {
-                // すでにいいねをしていた場合はいいねを解除するためIDを取り除く
+            //すでにイイねされていたら、
+            if indexData.zabutonAlready {
+                //-1をindexとし、
                 var index = -1
-                for likeId in indexData.commentLikes {
-                    if likeId == uid {
-                        // 削除するためにインデックスを保持しておく
-                        index = indexData.commentLikes.firstIndex(of: likeId)!
+                //indexData.commentLikesから一つずつ取り出したものをcommentLikeIdとする
+                for commentLikeId in indexData.commentZabutonArray {
+                    //likeIdがuidと同じものだったら、
+                    if commentLikeId == uid {
+                        // indexData.commentLikesの最初のインデックスをindex(-1)とする
+                        index = indexData.commentZabutonArray.firstIndex(of: commentLikeId)!
                         break
                     }
                 }
-                indexData.commentLikes.remove(at: index)
+                //indexData.commentLikesからindex(-1)を削除する
+                indexData.commentZabutonArray.remove(at: index)
+            //イイねされていなかったら、
             } else {
-                indexData.commentLikes.append(uid)
+                //indexData.commentLikesにuidをたす
+                indexData.commentZabutonArray.append(uid)
             }
 
             // 増えたlikesをFirebaseに保存する
             let postRef = Database.database().reference().child(Const.PostPath).child(postData.id!).child("comment").child(indexData.id!)
-            let likes = ["commentLikes": indexData.commentLikes]
+            let likes = ["commentLikes": indexData.commentZabutonArray]
             postRef.updateChildValues(likes)
 
         }

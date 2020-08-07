@@ -28,9 +28,10 @@ class PostData: NSObject {
     var commentProfileImageString: String?
     var commentProfileImage: UIImage?
     var comment: String?
+    var comments: [String] = []
     var commentDate: Date?
-    var commentLikes: [String] = []
-    var commentLiked: Bool = false
+    var commentZabutonArray: [String] = []
+    var zabutonAlready: Bool = false
 
     init(snapshot: DataSnapshot, myId: String) {
         self.id = snapshot.key
@@ -83,6 +84,11 @@ class PostData: NSObject {
         //コメント欄の名前
         self.commentName = valueDictionary["commentName"] as? String
         
+        //コメントの数
+        if let comments = valueDictionary["comments"] as? [String] {
+            self.comments = comments
+        }
+        
         //コメント文
         if let comment = valueDictionary["comment"] as? String {
             self.comment = comment
@@ -93,13 +99,18 @@ class PostData: NSObject {
             self.commentDate = Date(timeIntervalSinceReferenceDate: TimeInterval(commentTime)!)
         }
         //ライクカウント
+        //commentLikes配列にはuidが格納されている
         if let commentLikes = valueDictionary["commentLikes"] as? [String] {
-            self.commentLikes = commentLikes
+            self.commentZabutonArray = commentLikes
         }
         //ライクしたかどうか
-        for likeId in self.commentLikes {
+        //commentLikes配列から一つずつ取り出したものをlikeIdとする
+        for likeId in self.commentZabutonArray {
+            //もし自分のIDがlikeIDと同じならば、
             if likeId == myId {
-                self.commentLiked = true
+                //commentLikedをtrue（=イイね済）とする
+                self.zabutonAlready = true
+                //ループを抜ける
                 break
             }
         }

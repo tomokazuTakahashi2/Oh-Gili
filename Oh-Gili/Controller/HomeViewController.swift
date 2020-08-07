@@ -67,11 +67,15 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         // PostDataクラスを生成して受け取ったデータを設定する
                         let postData = PostData(snapshot: snapshot, myId: uid)
 
-                        // 保持している配列からidが同じものを探す
+                        //0をindexとする
                         var index: Int = 0
+                        //postArrayから一つずつ取り出したものをpostとする
                         for post in self.postArray {
+                            //もしpostData.idとpostが同じであれば、
                             if post.id == postData.id {
+                                //postArrayのファーストインデックスを0(index)とする
                                 index = self.postArray.firstIndex(of: post)!
+                                //ループを抜ける
                                 break
                             }
                         }
