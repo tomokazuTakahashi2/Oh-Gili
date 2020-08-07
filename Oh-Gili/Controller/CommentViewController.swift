@@ -127,11 +127,8 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
         let likeNumber = postData.likes.count
         self.likeCount.text = "\(likeNumber)"
         
-        self.commentCount.text = "\(0)"
-        
-        print(commentPostArray)
 
-
+//.childAddedイベント/.childChangedイベント
         if Auth.auth().currentUser != nil {
             if self.observing == false {
                 // 要素が追加されたらcommentPostArrayに追加してTableViewを再表示する
@@ -147,6 +144,9 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
                         // TableViewを再表示する
                         self.commentTableView.reloadData()
                     }
+                    //コメントカウント
+                    self.commentCount.text = "\(self.commentPostArray.count)"
+                    print("[追加カウント]\(self.commentPostArray.count)")
                 })
                 // 要素が変更されたら該当のデータをcommentPostArrayから一度削除した後に新しいデータを追加してTableViewを再表示する
                 postsRef.observe(.childChanged, with: { snapshot in
@@ -174,11 +174,13 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
                         // TableViewを再表示する
                         self.commentTableView.reloadData()
                     }
+
                 })
 
                 // DatabaseのobserveEventが上記コードにより登録されたため
                 // trueとする
                 observing = true
+                
             }
         } else {
             if observing == true {
@@ -196,9 +198,10 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
             }
         }
 
+
         
     }
-    //前の画面からデータを継承
+    //MARK:-前の画面からデータを継承
     func setPostData(_ postData: PostData) {
         postDataReceived = postData
     }
@@ -330,21 +333,15 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
                          //firebaseのオブジェクトの削除
                          posts.removeValue()
                          print("削除しました")
-                         // 差し替えるため一度削除する
-                        var index: Int = 0
-                        //postArrayから一つずつ取り出す
-                        for post in self.commentPostArray {
-                            //取り出したID(post.id)とポストデータのID（postData.id）が同じとき、
-                            if post.id == postData.id {
-                                //（一致したIDのうちの）最初のインデックスをindexとする
-                                index = self.commentPostArray.firstIndex(of: post)!
-                                break
-                            }
-                        }
+
                          //差し替えるため一度削除する
-                         self.commentPostArray.remove(at: index)
-                         // TableViewを再表示する
+                        self.commentPostArray.remove(at: indexPath.row)
+                         //self.commentPostArray.remove(at: index)
+                         // commentTableViewを再表示する
                          self.commentTableView.reloadData()
+                        //コメントカウント
+                        self.commentCount.text = "\(self.commentPostArray.count)"
+                         print("[削除カウント]\(self.commentPostArray.count)")
                          
                      }
                      //UIAlertControllerにキャンセルアクションを追加
@@ -390,20 +387,20 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
             if indexData.zabutonAlready {
                 //-1をindexとし、
                 var index = -1
-                //indexData.commentLikesから一つずつ取り出したものをcommentLikeIdとする
-                for commentLikeId in indexData.commentZabutonArray {
+                //indexData.commentZabutonArrayから一つずつ取り出したものをcommentZabutonIdとする
+                for commentZabutonId in indexData.commentZabutonArray {
                     //likeIdがuidと同じものだったら、
-                    if commentLikeId == uid {
-                        // indexData.commentLikesの最初のインデックスをindex(-1)とする
-                        index = indexData.commentZabutonArray.firstIndex(of: commentLikeId)!
+                    if commentZabutonId == uid {
+                        // indexData.commentZabutonArrayの最初のインデックスをindex(-1)とする
+                        index = indexData.commentZabutonArray.firstIndex(of: commentZabutonId)!
                         break
                     }
                 }
-                //indexData.commentLikesからindex(-1)を削除する
+                //indexData.commentZabutonArrayからindex(-1)を削除する
                 indexData.commentZabutonArray.remove(at: index)
             //イイねされていなかったら、
             } else {
-                //indexData.commentLikesにuidをたす
+                //indexData.commentZabutonArrayにuidをたす
                 indexData.commentZabutonArray.append(uid)
             }
 
@@ -441,7 +438,7 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
         if self.commentTextField.text != ""  {
             
             // 辞書を作成してFirebaseに保存する
-            let postDic = ["uid":uid!,"commentProfileImage": profileImageString,"comment": textField.text!,"commentDate": String(commentTime), "commentName": name!]
+            let postDic = ["uid":uid!,"commentProfileImage": profileImageString,"comment": textField.text!,"commentDate": String(commentTime), "commentName": name!] as [String : Any]
         postRef.child(postData.id!).child("comment").childByAutoId().updateChildValues(postDic)
 
             // HUDで投稿完了を表示する

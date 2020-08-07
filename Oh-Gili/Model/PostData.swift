@@ -28,7 +28,6 @@ class PostData: NSObject {
     var commentProfileImageString: String?
     var commentProfileImage: UIImage?
     var comment: String?
-    var comments: [String] = []
     var commentDate: Date?
     var commentZabutonArray: [String] = []
     var zabutonAlready: Bool = false
@@ -40,19 +39,23 @@ class PostData: NSObject {
         
         self.uid = valueDictionary["uid"]as? String
         
-        
+        //イメージ画像
         if let imageString = valueDictionary["image"] as? String{
         image = UIImage(data: Data(base64Encoded: imageString, options: .ignoreUnknownCharacters)!)
         }
         
+        //表示名
         self.name = valueDictionary["name"] as? String
         
+        //キャプション
         self.caption = valueDictionary["caption"] as? String
         
+        //日時
         if let time = valueDictionary["time"] as? String{
             self.date = Date(timeIntervalSinceReferenceDate: TimeInterval(time)!)
         }
         
+        //プロフィール画像
         if let profileImageString = valueDictionary["profileImage"] as? String{
             profileImage = UIImage(data: Data(base64Encoded: profileImageString, options: .ignoreUnknownCharacters)!)
         }
@@ -84,11 +87,6 @@ class PostData: NSObject {
         //コメント欄の名前
         self.commentName = valueDictionary["commentName"] as? String
         
-        //コメントの数
-        if let comments = valueDictionary["comments"] as? [String] {
-            self.comments = comments
-        }
-        
         //コメント文
         if let comment = valueDictionary["comment"] as? String {
             self.comment = comment
@@ -98,17 +96,17 @@ class PostData: NSObject {
         if let commentTime = valueDictionary["commentDate"] as? String{
             self.commentDate = Date(timeIntervalSinceReferenceDate: TimeInterval(commentTime)!)
         }
-        //ライクカウント
-        //commentLikes配列にはuidが格納されている
+        //座布団カウント
+        //commentZabutonArray配列にはuidが格納されている
         if let commentLikes = valueDictionary["commentLikes"] as? [String] {
             self.commentZabutonArray = commentLikes
         }
-        //ライクしたかどうか
-        //commentLikes配列から一つずつ取り出したものをlikeIdとする
+        //座布団ボタンを押したかどうか
+        //commentZabutonArray配列から一つずつ取り出したものをlikeIdとする
         for likeId in self.commentZabutonArray {
             //もし自分のIDがlikeIDと同じならば、
             if likeId == myId {
-                //commentLikedをtrue（=イイね済）とする
+                //zabutonAlreadyをtrue（=イイね済）とする
                 self.zabutonAlready = true
                 //ループを抜ける
                 break

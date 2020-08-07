@@ -122,7 +122,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.setPostData(postArray[indexPath.row])
 
         // セル内のボタンのアクションをソースコードで設定する
-        cell.likeButton.addTarget(self, action:#selector(handleButton(_:forEvent:)), for: .touchUpInside)
+        cell.likeButton.addTarget(self, action:#selector(handleHeartButton(_:forEvent:)), for: .touchUpInside)
         cell.zabutonButton.addTarget(self, action:#selector(handleZabutonButton(_:forEvent:)), for: .touchUpInside)
 
         return cell
@@ -266,19 +266,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                          //firebaseのオブジェクトの削除
                          posts.removeValue()
                          print("削除しました")
-                         // 差し替えるため一度削除する
-                        var index: Int = 0
-                        //postArrayから一つずつ取り出す
-                        for post in self.postArray {
-                            //取り出したID(post.id)とポストデータのID（postData.id）が同じとき、
-                            if post.id == postData.id {
-                                //（一致したIDのうちの）最初のインデックスをindexとする
-                                index = self.postArray.firstIndex(of: post)!
-                                break
-                            }
-                        }
+                        
                          //差し替えるため一度削除する
-                         self.postArray.remove(at: index)
+                         self.postArray.remove(at: indexPath.row)
                          // TableViewを再表示する
                          self.tableView.reloadData()
                          
@@ -306,8 +296,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
      }
 
     // セル内のボタンがタップされた時に呼ばれるメソッド
-    @objc func handleButton(_ sender: UIButton, forEvent event: UIEvent) {
-        print("DEBUG_PRINT: likeボタンがタップされました。")
+    @objc func handleHeartButton(_ sender: UIButton, forEvent event: UIEvent) {
+        print("DEBUG_PRINT: ハートボタンがタップされました。")
 
         // タップされたセルのインデックスを求める
         let touch = event.allTouches?.first
@@ -318,19 +308,27 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let postData = postArray[indexPath!.row]
 
         // Firebaseに保存するデータの準備
+        //カレントユーザーのIDをuidとする
         if let uid = Auth.auth().currentUser?.uid {
+            //もしイイね済みだったら、
             if postData.isLiked {
-                // すでにいいねをしていた場合はいいねを解除するためIDを取り除く
+                // -1をindexとする
                 var index = -1
+                //postData.likes配列から一つずつ取り出したものをlikeIdとする
                 for likeId in postData.likes {
+                    //uidとlikeIDが同じであれば、
                     if likeId == uid {
-                        // 削除するためにインデックスを保持しておく
+                        // postData.likes配列のファーストインデックスを-1(index)とする
                         index = postData.likes.firstIndex(of: likeId)!
+                        //ループを抜ける
                         break
                     }
                 }
+                //postData.likes配列のindexを削除する
                 postData.likes.remove(at: index)
+            //イイねされていなかったら、
             } else {
+                //postData.likes配列にuidを追加する
                 postData.likes.append(uid)
             }
 
@@ -342,7 +340,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     // セル内のボタンがタップされた時に呼ばれるメソッド
     @objc func handleZabutonButton(_ sender: UIButton, forEvent event: UIEvent) {
-        print("DEBUG_PRINT: likeボタンがタップされました。")
+        print("DEBUG_PRINT: 座布団ボタンがタップされました。")
 
         // タップされたセルのインデックスを求める
         let touch = event.allTouches?.first
