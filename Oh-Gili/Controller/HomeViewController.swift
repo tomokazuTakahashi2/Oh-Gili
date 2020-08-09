@@ -59,22 +59,27 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         //userDefaultがnilじゃなかったら、
                         if self.userDefaults.array(forKey: "blockUser") as! [String]? != nil{
                             //userDefaultから呼び出す
-                            if let blockUserArray = self.userDefaults.array(forKey: "blockUser") as! [String]?{
-                                //blockUserArrayから一つずつ取り出したものをblockUserIdとする
-                                for blockUserId in blockUserArray{
-                                    //もしblockUserIdとpostData.uidが同じでなかったら、
-                                    if blockUserId != postData.uid!{
-                                        //postArrayをそのまま差し込む（表示する）
-                                        self.postArray.insert(postData, at: 0)
-                                        print("blockUserIdと一致しません")
-                                    //blockUserIdとpostData.uidが同じだったら、
-                                    }else{
-                                        //何もしない（差し込まない＝表示しない）
-                                        print("blockUserIdと一致します")
-                                    }
-                                    // TableViewを再表示する
-                                    self.tableView.reloadData()
+                            if let getBlockUserArray = self.userDefaults.array(forKey: "blockUser") as! [String]?{
+                            print("【getBlockUserArray】:\(getBlockUserArray)")
+                                
+                                    
+                                //全てのブロックユーザーと投稿uidが一致しなければture
+                                let trueOrFalse = getBlockUserArray.allSatisfy{$0 != postData.uid}
+                                    print(trueOrFalse)
+                                
+                                //もしtrueだったら（ブロックユーザーに全く該当しなければ）、
+                                if trueOrFalse == true{
+                                    //postArrayをそのまま差し込む（表示する）
+                                    self.postArray.insert(postData, at: 0)
+                                    //print("\(postData.caption!)は\(blockUserId)と一致しません→表示します")
+                                //falseだったら(ブロックユーザーに一つでも該当すれば)、
+                                }else{
+                                    //何もしない（差し込まない＝表示しない）
+                                    //print("\(postData.caption!)は\(blockUserId)と一致します→表示しません")
                                 }
+                                // TableViewを再表示する
+                                self.tableView.reloadData()
+                                
                             }
                         //userDefaultがnilだったら、
                         }else{
@@ -246,19 +251,32 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     SVProgressHUD.showSuccess(withStatus: "このユーザーをブロックしました。")
                     
                     
-                //postArrayをフィルタリング（postArray.uidとpostData.uidが異なるもの(=ブロックIDじゃないもの)を残す）したもの
-                let filteringArray = self.postArray.filter{$0.uid != postData.uid}
-                    print("【filteringArray】:\(filteringArray)")
-                    
-                //postArrayの中身をfilteringArrayの中身にすり替える
-                self.postArray = filteringArray
+                    //postArrayをフィルタリング（postArray.uidとpostData.uidが異なるもの(=ブロックIDじゃないもの)を残す）したもの
+                    let filteringArray = self.postArray.filter{$0.uid != postData.uid}
+                        print("【filteringArray】:\(filteringArray)")
+                        
+                    //postArrayの中身をfilteringArrayの中身にすり替える
+                    self.postArray = filteringArray
 
-                // TableViewを再表示する
-                self.tableView.reloadData()
-                    
+                    // TableViewを再表示する
+                    self.tableView.reloadData()
+                        
                 //userDefaulfに保存
-                let blockUserArray = [postData.uid!]
-                self.userDefaults.set(blockUserArray, forKey: "blockUser")
+                    let blockUserArray = [postData.uid!]
+                        print("【blockUserArray】:\(blockUserArray)")
+                    //取り出す
+                    var getBlockUserArray = self.userDefaults.array(forKey: "blockUser")
+                        print("【getBlockUserArray】:\(getBlockUserArray!)")
+                    //もしblockUserArrayが空じゃなかったら、
+                    if blockUserArray != []{
+                        //getblockUserArrayにpostdata.uidを追加する
+                        getBlockUserArray?.append(postData.uid!)
+                    //blockUserArrayが空だったら、
+                    }else{
+                        //userDefaultにblockUserArrayをセットする
+                        self.userDefaults.set(blockUserArray, forKey: "blockUser")
+                    }
+                    print("【getBlockUserArray】:\(getBlockUserArray!)")
 
                 }
                 //アラートアクションのキャンセルボタン

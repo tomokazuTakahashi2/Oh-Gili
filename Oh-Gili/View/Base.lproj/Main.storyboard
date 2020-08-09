@@ -581,20 +581,20 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.crop.square" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="oS9-f4-rLx">
-                                <rect key="frame" x="107" y="230" width="200" height="197.5"/>
+                                <rect key="frame" x="182" y="230" width="50" height="47.5"/>
                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="oS9-f4-rLx" secondAttribute="height" multiplier="1:1" id="jsl-5E-jKY"/>
-                                    <constraint firstAttribute="width" constant="200" id="lm4-P3-PE9"/>
+                                    <constraint firstAttribute="width" constant="50" id="lm4-P3-PE9"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="100"/>
+                                        <integer key="value" value="25"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JPA-uS-LkQ">
-                                <rect key="frame" x="57" y="439" width="300" height="40"/>
+                                <rect key="frame" x="57" y="289" width="300" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="1XP-VW-kYj"/>
                                 </constraints>
@@ -612,14 +612,40 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="07z-Yy-qn1">
+                                <rect key="frame" x="57" y="359" width="300" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="oNg-lF-Hag"/>
+                                </constraints>
+                                <state key="normal" title="ブロックユーザーを解除" backgroundImage="btn"/>
+                                <connections>
+                                    <action selector="imageChoiceButton:" destination="Uvy-lx-yhQ" eventType="touchUpInside" id="XLP-PY-f7T"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1q2-wT-llb">
+                                <rect key="frame" x="57" y="399" width="300" height="453"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="HKg-vG-4qJ"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="07z-Yy-qn1" firstAttribute="top" secondItem="JPA-uS-LkQ" secondAttribute="bottom" constant="30" id="2Hd-12-qBx"/>
                             <constraint firstItem="gqb-0f-Ugc" firstAttribute="top" secondItem="jTP-b6-1LV" secondAttribute="bottom" constant="10" id="3P8-Yp-97m"/>
+                            <constraint firstItem="1q2-wT-llb" firstAttribute="centerX" secondItem="GA1-29-cI9" secondAttribute="centerX" id="7SL-MP-WxK"/>
                             <constraint firstItem="n7I-xW-eHq" firstAttribute="top" secondItem="gqb-0f-Ugc" secondAttribute="bottom" constant="10" id="JkH-Qh-7PJ"/>
+                            <constraint firstItem="07z-Yy-qn1" firstAttribute="centerX" secondItem="GA1-29-cI9" secondAttribute="centerX" id="Nsh-5m-upf"/>
                             <constraint firstItem="oS9-f4-rLx" firstAttribute="top" secondItem="n7I-xW-eHq" secondAttribute="bottom" constant="20" id="R59-Hb-I23"/>
+                            <constraint firstItem="1q2-wT-llb" firstAttribute="top" secondItem="07z-Yy-qn1" secondAttribute="bottom" id="Rdq-Oo-Aqs"/>
                             <constraint firstItem="JPA-uS-LkQ" firstAttribute="centerX" secondItem="GA1-29-cI9" secondAttribute="centerX" id="XKQ-aC-xgZ"/>
                             <constraint firstItem="gqb-0f-Ugc" firstAttribute="centerX" secondItem="GA1-29-cI9" secondAttribute="centerX" id="dW9-4g-SPp"/>
+                            <constraint firstItem="9xA-4R-MTV" firstAttribute="bottom" secondItem="1q2-wT-llb" secondAttribute="bottom" constant="10" id="j1H-UO-Gna"/>
                             <constraint firstItem="jTP-b6-1LV" firstAttribute="centerX" secondItem="GA1-29-cI9" secondAttribute="centerX" id="ooL-8f-b0A"/>
                             <constraint firstItem="oS9-f4-rLx" firstAttribute="centerX" secondItem="GA1-29-cI9" secondAttribute="centerX" id="rBn-xk-HpY"/>
                             <constraint firstItem="n7I-xW-eHq" firstAttribute="centerX" secondItem="GA1-29-cI9" secondAttribute="centerX" id="wI0-37-LRf"/>
@@ -629,6 +655,7 @@
                         <viewLayoutGuide key="safeArea" id="9xA-4R-MTV"/>
                     </view>
                     <connections>
+                        <outlet property="blockListView" destination="1q2-wT-llb" id="Heq-l4-dKb"/>
                         <outlet property="displayNameLabel" destination="jTP-b6-1LV" id="bov-z8-KjM"/>
                         <outlet property="displayNameTextField" destination="gqb-0f-Ugc" id="dwj-Nh-esA"/>
                         <outlet property="imageView" destination="oS9-f4-rLx" id="UgA-OI-R9e"/>
@@ -636,7 +663,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cVj-7f-eKa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2277" y="871"/>
+            <point key="canvasLocation" x="2276.8115942028985" y="870.53571428571422"/>
         </scene>
         <!--Logout View Controller-->
         <scene sceneID="RjP-wm-ccG">
