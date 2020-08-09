@@ -50,7 +50,7 @@
                             <constraint firstAttribute="height" constant="50" id="69i-Lp-jOQ"/>
                             <constraint firstAttribute="width" constant="50" id="N1a-Wo-L78"/>
                         </constraints>
-                        <state key="normal" title="Button" image="座布団"/>
+                        <state key="normal" image="座布団"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ef-r2-BQB">
                         <rect key="frame" x="380" y="41" width="30" height="30"/>

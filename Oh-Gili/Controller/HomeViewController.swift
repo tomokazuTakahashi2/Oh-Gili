@@ -16,12 +16,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     var postArray: [PostData] = []
     
-    //ブロックされたユーザーID
-    var blockUserIdArray =  [String]()
+    //  userDefaultsの定義
+    var userDefaults = UserDefaults.standard
 
     // DatabaseのobserveEventの登録状態を表す
     var observing = false
 
+    //MARK:-viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         print("DEBUG_PRINT: viewDidLoad")
@@ -38,56 +39,89 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // 高さ概算値 = 「縦横比1:1のUIImageViewの高さ(=画面幅)」+「いいねボタン、キャプションラベル、その他余白の高さの合計概算(=100pt)」
         tableView.estimatedRowHeight = UIScreen.main.bounds.width + 100
     }
-
+//MARK:-viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("DEBUG_PRINT: viewWillAppear")
+        
 
         if Auth.auth().currentUser != nil {
             if self.observing == false {
-                // 要素が追加されたらpostArrayに追加してTableViewを再表示する
+                
                 let postsRef = Database.database().reference().child(Const.PostPath)
+                // 要素が追加されたらpostArrayに追加してTableViewを再表示する
                 postsRef.observe(.childAdded, with: { snapshot in
                     print("DEBUG_PRINT: .childAddedイベントが発生しました。")
-
-                    // PostDataクラスを生成して受け取ったデータを設定する
+                
+                    //自分のIDをuidとする
                     if let uid = Auth.auth().currentUser?.uid {
                         let postData = PostData(snapshot: snapshot, myId: uid)
-                        self.postArray.insert(postData, at: 0)
-
-                        // TableViewを再表示する
-                        self.tableView.reloadData()
+                        
+                        //userDefaultがnilじゃなかったら、
+                        if self.userDefaults.array(forKey: "blockUser") as! [String]? != nil{
+                            //userDefaultから呼び出す
+                            if let blockUserArray = self.userDefaults.array(forKey: "blockUser") as! [String]?{
+                                //blockUserArrayから一つずつ取り出したものをblockUserIdとする
+                                for blockUserId in blockUserArray{
+                                    //もしblockUserIdとpostData.uidが同じでなかったら、
+                                    if blockUserId != postData.uid!{
+                                        //postArrayをそのまま差し込む（表示する）
+                                        self.postArray.insert(postData, at: 0)
+                                        print("blockUserIdと一致しません")
+                                    //blockUserIdとpostData.uidが同じだったら、
+                                    }else{
+                                        //何もしない（差し込まない＝表示しない）
+                                        print("blockUserIdと一致します")
+                                    }
+                                    // TableViewを再表示する
+                                    self.tableView.reloadData()
+                                }
+                            }
+                        //userDefaultがnilだったら、
+                        }else{
+                            //postArrayをそのまま差し込む（表示する）
+                            self.postArray.insert(postData, at: 0)
+                            // TableViewを再表示する
+                            self.tableView.reloadData()
+                        }
                     }
                 })
                 // 要素が変更されたら該当のデータをpostArrayから一度削除した後に新しいデータを追加してTableViewを再表示する
                 postsRef.observe(.childChanged, with: { snapshot in
                     print("DEBUG_PRINT: .childChangedイベントが発生しました。")
-
+                    
+                    //自分のIDをuidとする
                     if let uid = Auth.auth().currentUser?.uid {
                         // PostDataクラスを生成して受け取ったデータを設定する
                         let postData = PostData(snapshot: snapshot, myId: uid)
-
-                        //0をindexとする
-                        var index: Int = 0
-                        //postArrayから一つずつ取り出したものをpostとする
-                        for post in self.postArray {
-                            //もしpostData.idとpostが同じであれば、
-                            if post.id == postData.id {
-                                //postArrayのファーストインデックスを0(index)とする
-                                index = self.postArray.firstIndex(of: post)!
-                                //ループを抜ける
-                                break
+                        //postData.blockUserIdが存在したら、
+                        if postData.blockUserId != nil{
+                            //何もしない
+                            print("blockUserIdが存在します")
+                        //postData.blockUserIdが存在しなかったら、
+                        }else{
+                            print("blockUserIdが存在しません")
+                            //indexの初期値は0
+                            var index: Int = 0
+                            //postArrayから一つずつ取り出し、対象物（変更されたもの）をpostとする
+                            for post in self.postArray {
+                                //もしpostDataの投稿idとpost（対象）idが同じであれば、
+                                if post.id == postData.id {
+                                    //postArrayの中からpostのあるインデックス番号をindexとする
+                                    index = self.postArray.firstIndex(of: post)!
+                                    //ループを抜ける
+                                    break
+                                }
+                                
                             }
+                            // 差し替えるためindexを一度削除する
+                            self.postArray.remove(at: index)
+                            
+                            // 削除したところに更新済みのデータを追加する
+                            self.postArray.insert(postData, at: index)
+
+                            // TableViewを再表示する
+                            self.tableView.reloadData()
                         }
-
-                        // 差し替えるため一度削除する
-                        self.postArray.remove(at: index)
-
-                        // 削除したところに更新済みのデータを追加する
-                        self.postArray.insert(postData, at: index)
-
-                        // TableViewを再表示する
-                        self.tableView.reloadData()
                     }
                 })
 
@@ -111,7 +145,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
     }
-
+//MARK:-テーブルビュー
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postArray.count
     }
@@ -158,7 +192,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
     
-    //自分以外＝>報告・ブロックする
+    //MARK:-自分以外＝>報告・ブロックする
     internal func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let postData = postArray[indexPath.row]
@@ -211,24 +245,20 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 let blockAction = UIAlertAction(title: "ブロックする", style: .destructive) { (action) in
                     SVProgressHUD.showSuccess(withStatus: "このユーザーをブロックしました。")
                     
-                //blockUserIdArrayに対象投稿のuidを追加
-                self.blockUserIdArray.append(postData.uid!)
-                    print("【blockUserIdArray】\(self.blockUserIdArray)")
                     
                 //postArrayをフィルタリング（postArray.uidとpostData.uidが異なるもの(=ブロックIDじゃないもの)を残す）したもの
                 let filteringArray = self.postArray.filter{$0.uid != postData.uid}
                     print("【filteringArray】:\(filteringArray)")
                     
-                let sendNsData: NSData = try! NSKeyedArchiver.archivedData(withRootObject: postData, requiringSecureCoding: true) as NSData
-                
-                //UserDefaultsに保存
-                UserDefaults.standard.set(sendNsData, forKey: "filteringArray")
-
                 //postArrayの中身をfilteringArrayの中身にすり替える
                 self.postArray = filteringArray
 
                 // TableViewを再表示する
                 self.tableView.reloadData()
+                    
+                //userDefaulfに保存
+                let blockUserArray = [postData.uid!]
+                self.userDefaults.set(blockUserArray, forKey: "blockUser")
 
                 }
                 //アラートアクションのキャンセルボタン
@@ -295,7 +325,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
      }
 
-    // セル内のボタンがタップされた時に呼ばれるメソッド
+    // MARK:-セル内のボタンがタップされた時に呼ばれるメソッド
     @objc func handleHeartButton(_ sender: UIButton, forEvent event: UIEvent) {
         print("DEBUG_PRINT: ハートボタンがタップされました。")
 
@@ -312,13 +342,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if let uid = Auth.auth().currentUser?.uid {
             //もしイイね済みだったら、
             if postData.isLiked {
-                // -1をindexとする
+                // indexの初期値を-1とする
                 var index = -1
                 //postData.likes配列から一つずつ取り出したものをlikeIdとする
                 for likeId in postData.likes {
                     //uidとlikeIDが同じであれば、
                     if likeId == uid {
-                        // postData.likes配列のファーストインデックスを-1(index)とする
+                        // postData.likes配列のファーストインデックスをindexとする
                         index = postData.likes.firstIndex(of: likeId)!
                         //ループを抜ける
                         break

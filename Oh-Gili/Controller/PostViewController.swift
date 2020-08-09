@@ -23,6 +23,12 @@ class PostViewController: UIViewController {
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //もし、プロフィールイメージが空なら、デフォルト画像を表示しておく。
+        if profileImageView.image == nil {
+            let image1 = UIImage(named: "defaultProfileImage")
+            profileImageView.image = image1
+        }
 
         // 受け取った画像をImageViewに設定する
         imageView.image = image
@@ -67,11 +73,6 @@ class PostViewController: UIViewController {
         // ImageViewから画像を取得する
         let profileImageData = profileImageView.image!.jpegData(compressionQuality: 0.5)
         let profileImageString = profileImageData!.base64EncodedString(options: .lineLength64Characters)
-        //もし、プロフィールイメージが空なら、デフォルト画像を表示しておく。
-        if profileImageView.image == nil {
-            let image1 = UIImage(named: "defaultProfileImage")
-            profileImageView.image = image1
-        }
 
         // ImageViewから画像を取得する
         let imageData = imageView.image!.jpegData(compressionQuality: 0.5)

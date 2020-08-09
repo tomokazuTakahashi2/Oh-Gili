@@ -31,6 +31,8 @@ class PostData: NSObject {
     var commentDate: Date?
     var commentZabutonArray: [String] = []
     var zabutonAlready: Bool = false
+    
+    var blockUserId: String? = nil
 
     init(snapshot: DataSnapshot, myId: String) {
         self.id = snapshot.key
@@ -38,6 +40,8 @@ class PostData: NSObject {
         let valueDictionary = snapshot.value as! [String: Any]
         
         self.uid = valueDictionary["uid"]as? String
+        
+        self.blockUserId = valueDictionary["blockUserId"]as? String
         
         //イメージ画像
         if let imageString = valueDictionary["image"] as? String{
