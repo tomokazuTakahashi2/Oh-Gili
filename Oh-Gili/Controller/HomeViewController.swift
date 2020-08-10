@@ -21,6 +21,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     // DatabaseのobserveEventの登録状態を表す
     var observing = false
+    
 
     //MARK:-viewDidLoad
     override func viewDidLoad() {
@@ -38,11 +39,15 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // テーブル行の高さの概算値を設定しておく
         // 高さ概算値 = 「縦横比1:1のUIImageViewの高さ(=画面幅)」+「いいねボタン、キャプションラベル、その他余白の高さの合計概算(=100pt)」
         tableView.estimatedRowHeight = UIScreen.main.bounds.width + 100
+        
     }
+    
+
 //MARK:-viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        print("DEBUG_PRINT: viewWillAppear")
+
 
         if Auth.auth().currentUser != nil {
             if self.observing == false {
@@ -71,11 +76,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                 if trueOrFalse == true{
                                     //postArrayをそのまま差し込む（表示する）
                                     self.postArray.insert(postData, at: 0)
-                                    //print("\(postData.caption!)は\(blockUserId)と一致しません→表示します")
                                 //falseだったら(ブロックユーザーに一つでも該当すれば)、
                                 }else{
                                     //何もしない（差し込まない＝表示しない）
-                                    //print("\(postData.caption!)は\(blockUserId)と一致します→表示しません")
                                 }
                                 // TableViewを再表示する
                                 self.tableView.reloadData()
@@ -133,6 +136,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 // DatabaseのobserveEventが上記コードにより登録されたため
                 // trueとする
                 observing = true
+
             }
         } else {
             if observing == true {
@@ -150,11 +154,14 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
     }
+    
+    
 //MARK:-テーブルビュー
+    //セルの数
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postArray.count
     }
-
+    //セルを構築する際
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // セルを取得してデータを設定する
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! PostTableViewCell
@@ -209,6 +216,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             //💡スワイプアクション報告ボタン
             let reportButton: UIContextualAction = UIContextualAction(style: .normal, title: "報告",handler:  { (action: UIContextualAction, view: UIView, success :(Bool) -> Void )in
                 
+                let uid = Auth.auth().currentUser?.uid
+                
                 //アラートコントローラー（報告）
                 let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
                 //報告アクション
@@ -219,7 +228,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     let postDataId = postData.id
                     let reportUserId = postData.uid
                     //辞書
-                    let blockUserIdDic = ["reportID": postDataId!,"reportUser": reportUserId!] as [String : Any]
+                    let blockUserIdDic = ["報告対象ID": postDataId!,"報告対象ユーザー": reportUserId!,"報告者":uid!] as [String : Any]
                     //保存
                     posts.child("report").setValue(blockUserIdDic)
                     print("DEBUG_PRINT: 報告を保存しました。")
@@ -264,19 +273,21 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 //userDefaulfに保存
                     let blockUserArray = [postData.uid!]
                         print("【blockUserArray】:\(blockUserArray)")
-                    //取り出す
-                    var getBlockUserArray = self.userDefaults.array(forKey: "blockUser")
-                        print("【getBlockUserArray】:\(getBlockUserArray!)")
-                    //もしblockUserArrayが空じゃなかったら、
-                    if blockUserArray != []{
+                    //userDefaultsが空じゃなかったら、
+                    if self.userDefaults.array(forKey: "blockUser") != nil{
+                        //userDefaultから取り出す
+                        var getBlockUserArray = self.userDefaults.array(forKey: "blockUser") as! [String]
+                        print("【getBlockUserArray】:\(getBlockUserArray)")
                         //getblockUserArrayにpostdata.uidを追加する
-                        getBlockUserArray?.append(postData.uid!)
-                    //blockUserArrayが空だったら、
+                        getBlockUserArray.append(postData.uid!)
+                        print("【追加したgetBlockUserArray】:\(getBlockUserArray)")
+                        //userDefaultにgetBlockUserArrayをセットする
+                        self.userDefaults.set(getBlockUserArray, forKey: "blockUser")
+                    //userDefaultsが空だったら、
                     }else{
                         //userDefaultにblockUserArrayをセットする
                         self.userDefaults.set(blockUserArray, forKey: "blockUser")
                     }
-                    print("【getBlockUserArray】:\(getBlockUserArray!)")
 
                 }
                 //アラートアクションのキャンセルボタン

@@ -18,13 +18,12 @@ class SettingViewController: UIViewController,UIImagePickerControllerDelegate, U
     
     var imageURL:URL?
     var imageData:Data = Data()
-    //  userDefaultsの定義
-    var userDefaults = UserDefaults.standard
+
     
     @IBOutlet weak var displayNameLabel: UILabel!
     @IBOutlet weak var displayNameTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var blockListView: UITextView!
+
     //MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -56,15 +55,6 @@ class SettingViewController: UIViewController,UIImagePickerControllerDelegate, U
             displayNameLabel.text = user.displayName
         }
         
-        //userDefaultから呼び出す
-        if let getBlockUserArray = self.userDefaults.array(forKey: "blockUser") as! [String]?{
-        print("【getBlockUserArray】:\(getBlockUserArray)")
-            for blockUserId in getBlockUserArray{
-                self.blockListView.text = blockUserId
-                print("【blockUserIdy】:\(blockUserId)")
-            }
-            
-        }
         
     }
 //MARK: - 画面をタップしたらキーボードを閉じる

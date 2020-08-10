@@ -33,6 +33,7 @@
 		64C7421924C455FA0018258E /* ImageSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7421824C455FA0018258E /* ImageSelectViewController.swift */; };
 		64C7421B24C456120018258E /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7421A24C456120018258E /* PostViewController.swift */; };
 		64C7421D24C4562C0018258E /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7421C24C4562C0018258E /* SettingViewController.swift */; };
+		64D37D0B24E03E0A00D19DCE /* BlockUserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D37D0A24E03E0700D19DCE /* BlockUserListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		64C7421824C455FA0018258E /* ImageSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelectViewController.swift; sourceTree = "<group>"; };
 		64C7421A24C456120018258E /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		64C7421C24C4562C0018258E /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		64D37D0A24E03E0700D19DCE /* BlockUserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockUserListViewController.swift; sourceTree = "<group>"; };
 		9C7FD6B763C1C0A4F66C8B1E /* Pods_Oh_Gili.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Oh_Gili.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADB1FED8E03374AE34E0E682 /* Pods-Oh-Gili.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Oh-Gili.debug.xcconfig"; path = "Target Support Files/Pods-Oh-Gili/Pods-Oh-Gili.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -159,6 +161,7 @@
 				64C7421824C455FA0018258E /* ImageSelectViewController.swift */,
 				64C7421A24C456120018258E /* PostViewController.swift */,
 				64C7421C24C4562C0018258E /* SettingViewController.swift */,
+				64D37D0A24E03E0700D19DCE /* BlockUserListViewController.swift */,
 				644D656F24C8A48B00D8BB67 /* LogoutViewController.swift */,
 			);
 			path = Controller;
@@ -293,6 +296,7 @@
 				64C7421924C455FA0018258E /* ImageSelectViewController.swift in Sources */,
 				644D656E24C89F4A00D8BB67 /* MyNavigationViewController.swift in Sources */,
 				644D656C24C88DC900D8BB67 /* LoginNextViewController.swift in Sources */,
+				64D37D0B24E03E0A00D19DCE /* BlockUserListViewController.swift in Sources */,
 				641A16D324C46AE20038A80B /* PostData.swift in Sources */,
 				64C7421724C455D30018258E /* HomeViewController.swift in Sources */,
 				644D656A24C88D8E00D8BB67 /* TermsViewController.swift in Sources */,

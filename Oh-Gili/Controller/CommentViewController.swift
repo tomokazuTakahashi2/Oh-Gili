@@ -17,7 +17,9 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
     //var postArray: [PostData] = []
     var commentPostArray: [PostData] = []
     
-    var blockUserIdArray =  [String]()
+    //  userDefaultsの定義
+    var userDefaults = UserDefaults.standard
+    
     // DatabaseのobserveEventの登録状態を表す
     var observing = false
     //前画面からデータを受け取るための変数
@@ -237,6 +239,8 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
             //💡スワイプアクション報告ボタン
             let reportButton: UIContextualAction = UIContextualAction(style: .normal, title: "報告",handler:  { (action: UIContextualAction, view: UIView, success :(Bool) -> Void )in
                 
+                let uid = Auth.auth().currentUser?.uid
+                
                 //アラートコントローラー（報告）
                 let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
                 //報告アクション
@@ -244,10 +248,10 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
                     //表示
                     SVProgressHUD.showSuccess(withStatus: "この投稿を報告しました。ご協力ありがとうございました。")
                     
-                    let snapshotKey = postData.id
+                    let postDataId = postData.id
                     let reportUserId = postData.uid
                     //辞書
-                    let reportDic = ["reportID": snapshotKey!,"reportUser": reportUserId!] as [String : Any]
+                    let reportDic = ["報告対象ID": postDataId!,"報告対象ユーザー": reportUserId!,"報告者":uid!] as [String : Any]
                     //Firebaseに保存
                     posts.child("report").setValue(reportDic)
                     print("DEBUG_PRINT: 報告を保存しました。")
@@ -270,51 +274,62 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
             //報告ボタンの色(赤)
             reportButton.backgroundColor = UIColor.red
             
-            //💡スワイプアクションブロックボタン
-            let blockButton: UIContextualAction = UIContextualAction(style: .normal, title: "ブロック",handler:  { (action: UIContextualAction, view: UIView, success :(Bool) -> Void )in
-            
-                //アラートアクション（ブロック）
-                let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-                let blockAction = UIAlertAction(title: "ブロックする", style: .destructive) { (action) in
-                    SVProgressHUD.showSuccess(withStatus: "このユーザーをブロックしました。")
-                    
-                //blockUserIdArrayに対象投稿のuidを追加
-                self.blockUserIdArray.append(postData.uid!)
-                    print("【blockUserIdArray】\(self.blockUserIdArray)")
-
-                //postArrayをフィルタリング（postArray.uidとpostData.uidが異なるもの(=ブロックIDじゃないもの)を残す）したもの
-                let filteringArray = self.commentPostArray.filter{$0.uid != postData.uid}
-                    print("【filteringArray】:\(filteringArray)")
-                    
-                let sendNsData: NSData = try! NSKeyedArchiver.archivedData(withRootObject: postData, requiringSecureCoding: true) as NSData
-                
-                //UserDefaultsに保存
-                UserDefaults.standard.set(sendNsData, forKey: "filteringArray")
-
-                //postArrayの中身をfilteringArrayの中身にすり替える
-                self.commentPostArray = filteringArray
-
-                // TableViewを再表示する
-                self.commentTableView.reloadData()
-
-                }
-                //アラートアクションのキャンセルボタン
-                let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel) { (action) in
-                    alertController.dismiss(animated: true, completion: nil)
-                }
-                //UIAlertControllerにブロックActionを追加
-                alertController.addAction(blockAction)
-                //UIAlertControllerにキャンセルActionを追加
-                alertController.addAction(cancelAction)
-                //アラートを表示
-                self.present(alertController, animated: true, completion: nil)
-                //テーブルビューの編集→切
-                tableView.isEditing = false
-            })
-            //ブロックボタンの色(青)
-            blockButton.backgroundColor = UIColor.blue
-            
-            return UISwipeActionsConfiguration(actions: [blockButton,reportButton])
+//            //💡スワイプアクションブロックボタン
+//            let blockButton: UIContextualAction = UIContextualAction(style: .normal, title: "ブロック",handler:  { (action: UIContextualAction, view: UIView, success :(Bool) -> Void )in
+//
+//                //アラートアクション（ブロック）
+//                let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+//                let blockAction = UIAlertAction(title: "ブロックする", style: .destructive) { (action) in
+//                    SVProgressHUD.showSuccess(withStatus: "このユーザーをブロックしました。")
+//
+//                //postArrayをフィルタリング（postArray.uidとpostData.uidが異なるもの(=ブロックIDじゃないもの)を残す）したもの
+//                let filteringArray = self.commentPostArray.filter{$0.uid != postData.uid}
+//                    print("【filteringArray】:\(filteringArray)")
+//
+//
+//                //postArrayの中身をfilteringArrayの中身にすり替える
+//                self.commentPostArray = filteringArray
+//
+//                // TableViewを再表示する
+//                self.commentTableView.reloadData()
+//
+//                    //userDefaulfに保存
+//                    let blockUserArray = [postData.uid!]
+//                        print("【blockUserArray】:\(blockUserArray)")
+//                    //userDefaultsが空じゃなかったら、
+//                    if self.userDefaults.array(forKey: "blockUser") != nil{
+//                        //userDefaultから取り出す
+//                        var getBlockUserArray = self.userDefaults.array(forKey: "blockUser") as! [String]
+//                        print("【getBlockUserArray】:\(getBlockUserArray)")
+//                        //getblockUserArrayにpostdata.uidを追加する
+//                        getBlockUserArray.append(postData.uid!)
+//                        print("【追加したgetBlockUserArray】:\(getBlockUserArray)")
+//                        //userDefaultにgetBlockUserArrayをセットする
+//                        self.userDefaults.set(getBlockUserArray, forKey: "blockUser")
+//                    //userDefaultsが空だったら、
+//                    }else{
+//                        //userDefaultにblockUserArrayをセットする
+//                        self.userDefaults.set(blockUserArray, forKey: "blockUser")
+//                    }
+//
+//
+//                }
+//                //アラートアクションのキャンセルボタン
+//                let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel) { (action) in
+//                    alertController.dismiss(animated: true, completion: nil)
+//                }
+//                //UIAlertControllerにブロックActionを追加
+//                alertController.addAction(blockAction)
+//                //UIAlertControllerにキャンセルActionを追加
+//                alertController.addAction(cancelAction)
+//                //アラートを表示
+//                self.present(alertController, animated: true, completion: nil)
+//                //テーブルビューの編集→切
+//                tableView.isEditing = false
+//            })
+//            //ブロックボタンの色(青)
+//            blockButton.backgroundColor = UIColor.blue
+          return UISwipeActionsConfiguration(actions: [reportButton])
 
         //投稿ユーザーが自分だったら、
          } else {

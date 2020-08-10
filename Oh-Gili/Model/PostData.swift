@@ -25,6 +25,7 @@ class PostData: NSObject {
     var profileImage: UIImage?
     
     var commentName: String?
+    var commentUid: String?
     var commentProfileImageString: String?
     var commentProfileImage: UIImage?
     var comment: String?
@@ -86,7 +87,8 @@ class PostData: NSObject {
                 break
             }
         }
-        
+        //コメント uid
+        self.commentUid = valueDictionary["commentUid"]as? String
     
         //コメント欄の名前
         self.commentName = valueDictionary["commentName"] as? String
