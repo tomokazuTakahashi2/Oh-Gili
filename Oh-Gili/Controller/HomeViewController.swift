@@ -112,15 +112,16 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                             var index: Int = 0
                             //postArrayから一つずつ取り出し、対象物（変更されたもの）をpostとする
                             for post in self.postArray {
-                                //もしpostDataの投稿idとpost（対象）idが同じであれば、
+                                //もしpostDataの投稿idとpost（変更されたもの）idが同じであれば、
                                 if post.id == postData.id {
-                                    //postArrayの中からpostのあるインデックス番号をindexとする
+                                    //postArrayの中からpost（変更されたもの）のあるインデックス番号をindexとする
                                     index = self.postArray.firstIndex(of: post)!
+
                                     //ループを抜ける
                                     break
                                 }
-                                
                             }
+
                             // 差し替えるためindexを一度削除する
                             self.postArray.remove(at: index)
                             
@@ -270,7 +271,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     // TableViewを再表示する
                     self.tableView.reloadData()
                         
-                //userDefaulfに保存
+                //userDefaultに保存
                     let blockUserArray = [postData.uid!]
                         print("【blockUserArray】:\(blockUserArray)")
                     //userDefaultsが空じゃなかったら、

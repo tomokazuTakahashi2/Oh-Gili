@@ -14,7 +14,6 @@ import SVProgressHUD
 
 class CommentViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate{
     
-    //var postArray: [PostData] = []
     var commentPostArray: [PostData] = []
     
     //  userDefaultsの定義
@@ -142,10 +141,12 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
                     if let uid = Auth.auth().currentUser?.uid {
                         let postData = PostData(snapshot: snapshot, myId: uid)
                         self.commentPostArray.insert(postData, at: 0)
-
+                        
                         // TableViewを再表示する
                         self.commentTableView.reloadData()
                     }
+                    
+                    
                     //コメントカウント
                     self.commentCount.text = "\(self.commentPostArray.count)"
                     print("[追加カウント]\(self.commentPostArray.count)")
@@ -155,6 +156,7 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
                     print("DEBUG_PRINT: .childChangedイベントが発生しました。")
 
                     if let uid = Auth.auth().currentUser?.uid {
+                        
                         // PostDataクラスを生成して受け取ったデータを設定する
                         let postData = PostData(snapshot: snapshot, myId: uid)
 
@@ -163,9 +165,11 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
                         for post in self.commentPostArray {
                             if post.id == postData.id {
                                 index = self.commentPostArray.firstIndex(of: post)!
+                                
                                 break
                             }
                         }
+              
 
                         // 差し替えるため一度削除する
                         self.commentPostArray.remove(at: index)
@@ -435,7 +439,8 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
         
         // postDataに必要な情報を取得しておく
             let uid = Auth.auth().currentUser?.uid
-            let postRef = Database.database().reference().child(Const.PostPath)
+            let postRef1 = Database.database().reference()
+            let postRef2 = postRef1.child(Const.PostPath)
             let commentTime = Date.timeIntervalSinceReferenceDate
             let name = Auth.auth().currentUser?.displayName
             // ImageViewから画像を取得する
@@ -454,7 +459,10 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
             
             // 辞書を作成してFirebaseに保存する
             let postDic = ["uid":uid!,"commentProfileImage": profileImageString,"comment": textField.text!,"commentDate": String(commentTime), "commentName": name!] as [String : Any]
-        postRef.child(postData.id!).child("comment").childByAutoId().updateChildValues(postDic)
+        postRef2.child(postData.id!).child("comment").childByAutoId().updateChildValues(postDic)
+            
+            let notificationDic = ["通知画像": profileImageString,"日時":String(commentTime),"名前A":name!,"名前B":postData.name!]
+            postRef1.child("notification").childByAutoId().updateChildValues(notificationDic)
 
             // HUDで投稿完了を表示する
             SVProgressHUD.showSuccess(withStatus: "投稿しました")

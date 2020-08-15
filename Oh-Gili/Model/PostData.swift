@@ -34,6 +34,14 @@ class PostData: NSObject {
     var zabutonAlready: Bool = false
     
     var blockUserId: String? = nil
+    
+    
+    var notificationProfileImage: UIImage?
+    var notificationDate: Date?
+    var notificationName1: String?
+    var notificationName2: String?
+    
+    
 
     init(snapshot: DataSnapshot, myId: String) {
         self.id = snapshot.key
@@ -121,6 +129,21 @@ class PostData: NSObject {
         //コメント欄のプロフィール画像
         if let commentProfileImageString = valueDictionary["commentProfileImage"] as? String{
         commentProfileImage = UIImage(data: Data(base64Encoded: commentProfileImageString, options: .ignoreUnknownCharacters)!)
+        }
+        
+        
+        //通知欄のプロフィール画像
+        if let notificationProfileImageString = valueDictionary["通知画像"] as? String{
+        notificationProfileImage = UIImage(data: Data(base64Encoded: notificationProfileImageString, options: .ignoreUnknownCharacters)!)
+        }
+        //通知欄の名前A
+        self.notificationName1 = valueDictionary["名前A"] as? String
+        //通知欄の名前B
+        self.notificationName2 = valueDictionary["名前B"] as? String
+        
+        //コメント日時
+        if let notificationTime = valueDictionary["日時"] as? String{
+            self.notificationDate = Date(timeIntervalSinceReferenceDate: TimeInterval(notificationTime)!)
         }
     }
 }

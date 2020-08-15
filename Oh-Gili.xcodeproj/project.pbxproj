@@ -34,6 +34,8 @@
 		64C7421B24C456120018258E /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7421A24C456120018258E /* PostViewController.swift */; };
 		64C7421D24C4562C0018258E /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C7421C24C4562C0018258E /* SettingViewController.swift */; };
 		64D37D0B24E03E0A00D19DCE /* BlockUserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D37D0A24E03E0700D19DCE /* BlockUserListViewController.swift */; };
+		64D37D0E24E1A16B00D19DCE /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D37D0C24E1A16B00D19DCE /* NotificationTableViewCell.swift */; };
+		64D37D0F24E1A16B00D19DCE /* NotificationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64D37D0D24E1A16B00D19DCE /* NotificationTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +68,8 @@
 		64C7421A24C456120018258E /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		64C7421C24C4562C0018258E /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		64D37D0A24E03E0700D19DCE /* BlockUserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockUserListViewController.swift; sourceTree = "<group>"; };
+		64D37D0C24E1A16B00D19DCE /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
+		64D37D0D24E1A16B00D19DCE /* NotificationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationTableViewCell.xib; sourceTree = "<group>"; };
 		9C7FD6B763C1C0A4F66C8B1E /* Pods_Oh_Gili.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Oh_Gili.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADB1FED8E03374AE34E0E682 /* Pods-Oh-Gili.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Oh-Gili.debug.xcconfig"; path = "Target Support Files/Pods-Oh-Gili/Pods-Oh-Gili.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -142,6 +146,8 @@
 				641A16D524C46B110038A80B /* PostTableViewCell.xib */,
 				644D657524CA05F600D8BB67 /* CommentTableViewCell.swift */,
 				644D657624CA05F600D8BB67 /* CommentTableViewCell.xib */,
+				64D37D0C24E1A16B00D19DCE /* NotificationTableViewCell.swift */,
+				64D37D0D24E1A16B00D19DCE /* NotificationTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -186,7 +192,7 @@
 				64C741F924C42D240018258E /* Sources */,
 				64C741FA24C42D240018258E /* Frameworks */,
 				64C741FB24C42D240018258E /* Resources */,
-				77EF3F21386B570B92DAB3CC /* [CP] Embed Pods Frameworks */,
+				64CDD313F814DB5EEBF22258 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -240,6 +246,7 @@
 				64C7420A24C42D260018258E /* Assets.xcassets in Resources */,
 				641A16DB24C46E030038A80B /* GoogleService-Info.plist in Resources */,
 				64C7420824C42D240018258E /* Main.storyboard in Resources */,
+				64D37D0F24E1A16B00D19DCE /* NotificationTableViewCell.xib in Resources */,
 				641A16D724C46B110038A80B /* PostTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -247,7 +254,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		77EF3F21386B570B92DAB3CC /* [CP] Embed Pods Frameworks */ = {
+		64CDD313F814DB5EEBF22258 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -293,6 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64D37D0E24E1A16B00D19DCE /* NotificationTableViewCell.swift in Sources */,
 				64C7421924C455FA0018258E /* ImageSelectViewController.swift in Sources */,
 				644D656E24C89F4A00D8BB67 /* MyNavigationViewController.swift in Sources */,
 				644D656C24C88DC900D8BB67 /* LoginNextViewController.swift in Sources */,
