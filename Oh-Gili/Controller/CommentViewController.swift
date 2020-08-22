@@ -115,6 +115,7 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
           let buttonImage = UIImage(named: "座布団（白黒）")
           self.zabutonButton.setImage(buttonImage, for: .normal)
         }
+        //座布団の数
         let zabutonNumber = postData.zabutons.count
         self.zabutonLabel.text = "\(zabutonNumber)"
         //ハート
@@ -125,6 +126,7 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
             let buttonImage = UIImage(named: "like_none")
             self.likeButton.setImage(buttonImage, for: .normal)
         }
+        //ハートの数
         let likeNumber = postData.likes.count
         self.likeCount.text = "\(likeNumber)"
         
@@ -133,8 +135,8 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
         if Auth.auth().currentUser != nil {
             if self.observing == false {
                 // 要素が追加されたらcommentPostArrayに追加してTableViewを再表示する
-                let postsRef = Database.database().reference().child(Const.PostPath).child(postData.id!).child("comment")
-                postsRef.observe(.childAdded, with: { snapshot in
+                let postsRef = Database.database().reference().child(Const.PostPath).child(postData.id!)
+                postsRef.child("comment").observe(.childAdded, with: { snapshot in
                     print("DEBUG_PRINT: .childAddedイベントが発生しました。")
 
                     // PostDataクラスを生成して受け取ったデータを設定する
@@ -145,7 +147,7 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
                         // TableViewを再表示する
                         self.commentTableView.reloadData()
                     }
-                    
+
                     
                     //コメントカウント
                     self.commentCount.text = "\(self.commentPostArray.count)"
@@ -169,7 +171,6 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
                                 break
                             }
                         }
-              
 
                         // 差し替えるため一度削除する
                         self.commentPostArray.remove(at: index)
@@ -222,8 +223,8 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
 
         // セルを取得してデータを設定する
         cell.setPostData(commentPostArray[indexPath.row])
-        // セル内のボタンのアクションをソースコードで設定する
-        cell.zabutonButton.addTarget(self, action:#selector(handleZabutonButton(_:forEvent:)), for: .touchUpInside)
+//        // セル内のボタンのアクションをソースコードで設定する
+//        cell.zabutonButton.addTarget(self, action:#selector(handleZabutonButton(_:forEvent:)), for: .touchUpInside)
         
         return cell
         
@@ -385,51 +386,72 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
 
         }
     
-    //MARK:-コメントテーブルビューのイイねボタン
-    // セル内のボタンがタップされた時に呼ばれるメソッド
-    @objc func handleZabutonButton(_ sender: UIButton, forEvent event: UIEvent) {
-        print("DEBUG_PRINT: likeボタンがタップされました。")
-        
-        guard let postData = postDataReceived else {return}
-
-        // タップされたセルのインデックスを求める
-        let touch = event.allTouches?.first
-        let point = touch!.location(in: self.commentTableView)
-        let indexPath = commentTableView.indexPathForRow(at: point)
-
-        // 配列からタップされたインデックスのデータを取り出す
-        let indexData = commentPostArray[indexPath!.row]
-
-        // Firebaseに保存するデータの準備
-        if let uid = Auth.auth().currentUser?.uid {
-            //すでにイイねされていたら、
-            if indexData.zabutonAlready {
-                //-1をindexとし、
-                var index = -1
-                //indexData.commentZabutonArrayから一つずつ取り出したものをcommentZabutonIdとする
-                for commentZabutonId in indexData.commentZabutonArray {
-                    //likeIdがuidと同じものだったら、
-                    if commentZabutonId == uid {
-                        // indexData.commentZabutonArrayの最初のインデックスをindex(-1)とする
-                        index = indexData.commentZabutonArray.firstIndex(of: commentZabutonId)!
-                        break
-                    }
-                }
-                //indexData.commentZabutonArrayからindex(-1)を削除する
-                indexData.commentZabutonArray.remove(at: index)
-            //イイねされていなかったら、
-            } else {
-                //indexData.commentZabutonArrayにuidをたす
-                indexData.commentZabutonArray.append(uid)
-            }
-
-            // 増えたlikesをFirebaseに保存する
-            let postRef = Database.database().reference().child(Const.PostPath).child(postData.id!).child("comment").child(indexData.id!)
-            let likes = ["commentLikes": indexData.commentZabutonArray]
-            postRef.updateChildValues(likes)
-
-        }
-    }
+//    //MARK:-コメントテーブルビューの座布団ボタン
+//    // セル内のボタンがタップされた時に呼ばれるメソッド
+//    @objc func handleZabutonButton(_ sender: UIButton, forEvent event: UIEvent) {
+//        print("DEBUG_PRINT: テーブル内の座布団ボタンがタップされました。")
+//
+//        guard let postData = postDataReceived else {return}
+//
+//        // タップされたセルのインデックスを求める
+//        let touch = event.allTouches?.first
+//        let point = touch!.location(in: self.commentTableView)
+//        let indexPath = commentTableView.indexPathForRow(at: point)
+//
+//        // 配列からタップされたインデックスのデータを取り出す
+//        let indexData = commentPostArray[indexPath!.row]
+//
+//        // Firebaseに保存するデータの準備
+//        if let uid = Auth.auth().currentUser?.uid {
+//            //すでに座布団されていたら、
+//            if indexData.zabutonAlready{
+//                print("[indexData.zabutonAlready]:\(indexData.zabutonAlready)")
+//                print("座布団されてるので、削除します。")
+//                //indexの初期値を-1とし、
+//                var index = -1
+//                //indexData.commentZabutonArrayから一つずつ取り出したものをcommentZabutonIdとする
+//                for commentZabutonId in indexData.commentZabutonArray {
+//                    //commentZabutonIdが自分のuidと同じだったら、
+//                    if commentZabutonId == uid {
+//                    print("[commentZabutonId]:\(commentZabutonId)")
+//                        // indexData.commentZabutonArrayの対象のインデックスをindexとする
+//                        index = indexData.commentZabutonArray.firstIndex(of: commentZabutonId)!
+//                        break
+//                    }
+//
+//                }
+//                //indexData.commentZabutonArrayからindexを削除する
+//                indexData.commentZabutonArray.remove(at: index)
+//                print("[indexData.commentZabutonArray]:\(indexData.commentZabutonArray)")
+//                indexData.zabutonAlready = false
+//                //差し替えるため一度削除する
+//                self.commentPostArray.remove(at: index)
+//                // commentTableViewを再表示する
+//                self.commentTableView.reloadData()
+//
+//            //座布団されていなかったら、
+//            } else {
+//                print("座布団されてないので、足します。")
+//                //indexData.commentZabutonArrayにuidをたす
+//                indexData.commentZabutonArray.append(uid)
+//                print("[indexData.commentZabutonArray]:\(indexData.commentZabutonArray)")
+//                indexData.zabutonAlready = true
+//
+//                print("[indexData.zabutonAlready]:\(indexData.zabutonAlready)")
+//                print("[postData.zabutonAlready]:\(postData.zabutonAlready)")
+//
+//            }
+//
+//            // 増えた座布団をFirebaseに保存する
+//            let postRef = Database.database().reference().child(Const.PostPath).child(postData.id!).child("comment").child(indexData.id!)
+//            let zabutons = ["commentZabutonArray": indexData.commentZabutonArray]
+//            postRef.updateChildValues(zabutons)
+//
+//
+//
+//
+//        }
+//    }
     //キーボードを閉じる（タップしたら）
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -461,6 +483,7 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
             let postDic = ["uid":uid!,"commentProfileImage": profileImageString,"comment": textField.text!,"commentDate": String(commentTime), "commentName": name!] as [String : Any]
         postRef2.child(postData.id!).child("comment").childByAutoId().updateChildValues(postDic)
             
+            //通知情報をFirebaseに保存
             let notificationDic = ["通知画像": profileImageString,"日時":String(commentTime),"名前A":name!,"名前B":postData.name!]
             postRef1.child("notification").childByAutoId().updateChildValues(notificationDic)
 
@@ -571,3 +594,4 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
 }
+

@@ -45,21 +45,30 @@ class CommentTableViewCell: UITableViewCell {
             let dateString = formatter.string(from: postData.commentDate!)
             self.dateLabel.text = dateString
         }
-        //座布団カウント
-        if postData.commentZabutonArray.count != 0{
-            let likeNumber = postData.commentZabutonArray.count
-            zabutonCount.text = "\(likeNumber)"
-        }else{
-            zabutonCount.text = "\(0)"
-        }
-        //座布団ボタン
-        if postData.zabutonAlready {
-            let buttonImage = UIImage(named: "座布団")
-            self.zabutonButton.setImage(buttonImage, for: .normal)
-        } else {
-            let buttonImage = UIImage(named: "座布団（白黒）")
-            self.zabutonButton.setImage(buttonImage, for: .normal)
-        }
+//        //座布団カウント
+//        //もしpostData.commentZabutonArray.countが0じゃなかったら、
+//        if postData.commentZabutonArray.count != 0{
+//            //postData.commentZabutonArray.countをlikeNumberとし、
+//            let likeNumber = postData.commentZabutonArray.count
+//            //zabutonCount.textに反映する
+//            zabutonCount.text = "\(likeNumber)"
+//        //postData.commentZabutonArray.countが0だったら、
+//        }else{
+//            //zabutonCount.textを0にする
+//            zabutonCount.text = "\(0)"
+//        }
+//        //座布団ボタン
+//        //postData.zabutonAlreadyだったら、
+//        if postData.zabutonAlready {
+//            //座布団ボタンをカラーにする
+//            let buttonImage = UIImage(named: "座布団")
+//            self.zabutonButton.setImage(buttonImage, for: .normal)
+//        //postData.zabutonAlreadyじゃなかったら、
+//        } else {
+//            //座布団ボタンを白黒にする
+//            let buttonImage = UIImage(named: "座布団（白黒）")
+//            self.zabutonButton.setImage(buttonImage, for: .normal)
+//        }
         
         //コメント
         if postData.comment != nil{

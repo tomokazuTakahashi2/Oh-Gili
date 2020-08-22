@@ -176,7 +176,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     //セルの高さ
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 250
+        return 200
     
     }
     //セルをタップしたら画面遷移
@@ -433,5 +433,5 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             postRef.updateChildValues(zabutons)
         }
     }
-
+    
 }

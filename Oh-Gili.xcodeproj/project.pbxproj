@@ -12,7 +12,8 @@
 		641A16D624C46B110038A80B /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641A16D424C46B110038A80B /* PostTableViewCell.swift */; };
 		641A16D724C46B110038A80B /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 641A16D524C46B110038A80B /* PostTableViewCell.xib */; };
 		641A16D924C46D7F0038A80B /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641A16D824C46D7F0038A80B /* Const.swift */; };
-		641A16DB24C46E030038A80B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 641A16DA24C46E030038A80B /* GoogleService-Info.plist */; };
+		641D7AA424E97CC800284120 /* プライバシーポリシー.txt in Resources */ = {isa = PBXBuildFile; fileRef = 641D7AA324E97CC800284120 /* プライバシーポリシー.txt */; };
+		641D7AAB24ED4BE900284120 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 641D7AAA24ED4BE800284120 /* GoogleService-Info.plist */; };
 		644D656824C88D5C00D8BB67 /* NewLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644D656724C88D5C00D8BB67 /* NewLoginViewController.swift */; };
 		644D656A24C88D8E00D8BB67 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644D656924C88D8E00D8BB67 /* TermsViewController.swift */; };
 		644D656C24C88DC900D8BB67 /* LoginNextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644D656B24C88DC900D8BB67 /* LoginNextViewController.swift */; };
@@ -44,7 +45,9 @@
 		641A16D424C46B110038A80B /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		641A16D524C46B110038A80B /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
 		641A16D824C46D7F0038A80B /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
-		641A16DA24C46E030038A80B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		641D7AA324E97CC800284120 /* プライバシーポリシー.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "プライバシーポリシー.txt"; sourceTree = "<group>"; };
+		641D7AA924EAC3CB00284120 /* Oh-Gili.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Oh-Gili.entitlements"; sourceTree = "<group>"; };
+		641D7AAA24ED4BE800284120 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		644D656724C88D5C00D8BB67 /* NewLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLoginViewController.swift; sourceTree = "<group>"; };
 		644D656924C88D8E00D8BB67 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
 		644D656B24C88DC900D8BB67 /* LoginNextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNextViewController.swift; sourceTree = "<group>"; };
@@ -116,6 +119,7 @@
 		64C741FF24C42D240018258E /* Oh-Gili */ = {
 			isa = PBXGroup;
 			children = (
+				641D7AA924EAC3CB00284120 /* Oh-Gili.entitlements */,
 				64C7420024C42D240018258E /* AppDelegate.swift */,
 				64C7420224C42D240018258E /* SceneDelegate.swift */,
 				64C7421E24C456430018258E /* Model */,
@@ -124,7 +128,8 @@
 				64C7420924C42D260018258E /* Assets.xcassets */,
 				64C7420B24C42D260018258E /* LaunchScreen.storyboard */,
 				64C7420E24C42D260018258E /* Info.plist */,
-				641A16DA24C46E030038A80B /* GoogleService-Info.plist */,
+				641D7AAA24ED4BE800284120 /* GoogleService-Info.plist */,
+				641D7AA324E97CC800284120 /* プライバシーポリシー.txt */,
 			);
 			path = "Oh-Gili";
 			sourceTree = "<group>";
@@ -241,10 +246,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				641D7AA424E97CC800284120 /* プライバシーポリシー.txt in Resources */,
+				641D7AAB24ED4BE900284120 /* GoogleService-Info.plist in Resources */,
 				64C7420D24C42D260018258E /* LaunchScreen.storyboard in Resources */,
 				644D657824CA05F600D8BB67 /* CommentTableViewCell.xib in Resources */,
 				64C7420A24C42D260018258E /* Assets.xcassets in Resources */,
-				641A16DB24C46E030038A80B /* GoogleService-Info.plist in Resources */,
 				64C7420824C42D240018258E /* Main.storyboard in Resources */,
 				64D37D0F24E1A16B00D19DCE /* NotificationTableViewCell.xib in Resources */,
 				641A16D724C46B110038A80B /* PostTableViewCell.xib in Resources */,
@@ -465,6 +471,7 @@
 			baseConfigurationReference = ADB1FED8E03374AE34E0E682 /* Pods-Oh-Gili.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Oh-Gili/Oh-Gili.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEVELOPMENT_TEAM = J8LP9MW8T8;
@@ -474,7 +481,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "jp.tomokazu.takahashi.Oh-Gili";
+				PRODUCT_BUNDLE_IDENTIFIER = jp.tomokazu.takahashi.OhGili;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -486,6 +493,7 @@
 			baseConfigurationReference = 32BB186BE8B99AF1400CD0EA /* Pods-Oh-Gili.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Oh-Gili/Oh-Gili.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEVELOPMENT_TEAM = J8LP9MW8T8;
@@ -495,7 +503,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "jp.tomokazu.takahashi.Oh-Gili";
+				PRODUCT_BUNDLE_IDENTIFIER = jp.tomokazu.takahashi.OhGili;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

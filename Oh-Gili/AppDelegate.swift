@@ -8,16 +8,58 @@
 
 import UIKit
 import Firebase
+import FirebaseMessaging
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 var window: UIWindow?
+var notificationGranted = true
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
+        
+        //リモートプッシュ通知関連
+        if #available(iOS 10.0, *){
+            UNUserNotificationCenter.current().delegate = self as UNUserNotificationCenterDelegate
+            
+            let authOptions:UNAuthorizationOptions = [.alert,.badge,.sound]
+            UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: {_,_ in})
+            
+        }else{
+            let settings:UIUserNotificationSettings = UIUserNotificationSettings(types: [.alert,.badge,.sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
+        }
+        
+        application.registerForRemoteNotifications()
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound]){
+            (granted,error)in
+            self.notificationGranted = granted
+            if let error = error{
+                print("granted,but Error in notification permission:\(error.localizedDescription)")
+            }
+        }
+        
         return true
+    }
+    //メッセージを受け取った時の反応
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        if let messageID = userInfo["gcm.message_id"]{
+            print("Message ID: \(messageID)")
+        }
+        print(userInfo)
+    }
+    //メッセージを受け取った時の反応
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        if let messageID = userInfo["gcm.message_id"]{
+          print("Message ID: \(messageID)")
+        }
+        print(userInfo)
+        
+        completionHandler(UIBackgroundFetchResult.newData)
     }
 
     // MARK: UISceneSession Lifecycle
@@ -39,3 +81,31 @@ var window: UIWindow?
 
 }
 
+//プッシュ通知機能のエクステ
+@available(iOS 10,*)
+extension AppDelegate: UNUserNotificationCenterDelegate{
+    func userNotificationCenter(_ center: UNUserNotificationCenter,willPresent notification: UNNotification,withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void){
+        let userInfo = notification.request.content.userInfo
+        
+        if let messageID = userInfo["gcm.message_id"]{
+            print("Message ID: \(messageID)")
+        }
+        
+        print(userInfo)
+        
+        completionHandler([])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        let userInfo = response.notification.request.content.userInfo
+        
+        if let messageID = userInfo["gcm.message_id"]{
+            print("Message ID: \(messageID)")
+        }
+        
+        print(userInfo)
+        
+        completionHandler()
+    }
+}

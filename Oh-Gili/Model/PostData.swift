@@ -112,8 +112,8 @@ class PostData: NSObject {
         }
         //座布団カウント
         //commentZabutonArray配列にはuidが格納されている
-        if let commentLikes = valueDictionary["commentLikes"] as? [String] {
-            self.commentZabutonArray = commentLikes
+        if let commentZabutonArray = valueDictionary["commentZabutonarray"] as? [String] {
+            self.commentZabutonArray = commentZabutonArray
         }
         //座布団ボタンを押したかどうか
         //commentZabutonArray配列から一つずつ取り出したものをlikeIdとする
