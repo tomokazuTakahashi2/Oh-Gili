@@ -15,4 +15,4 @@
 ⑤ブロックしたい投稿にはブロックボタンでブロック指定ができます。
 
 ## 画像イメージ
-![]("https://user-images.githubusercontent.com/52473279/91652235-14b93280-ead0-11ea-9140-62a23e1e0651.png")
+![](https://user-images.githubusercontent.com/52473279/91652271-75486f80-ead0-11ea-8002-6acc4abccb92.png)
