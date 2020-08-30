@@ -42,8 +42,10 @@ class PostData: NSObject {
     var notificationName2: String?
     
     
+    
 
     init(snapshot: DataSnapshot, myId: String) {
+
         self.id = snapshot.key
 
         let valueDictionary = snapshot.value as! [String: Any]
@@ -112,14 +114,15 @@ class PostData: NSObject {
         }
         //座布団カウント
         //commentZabutonArray配列にはuidが格納されている
-        if let commentZabutonArray = valueDictionary["commentZabutonarray"] as? [String] {
+        if let commentZabutonArray = valueDictionary["commentZabutonArray"] as? [String] {
             self.commentZabutonArray = commentZabutonArray
         }
         //座布団ボタンを押したかどうか
-        //commentZabutonArray配列から一つずつ取り出したものをlikeIdとする
-        for likeId in self.commentZabutonArray {
+        //commentZabutonArray配列から一つずつ取り出したものをgetZabutonとする
+        for getZabuton in self.commentZabutonArray {
             //もし自分のIDがlikeIDと同じならば、
-            if likeId == myId {
+            if getZabuton == myId {
+                print("[myID]\(myId)")
                 //zabutonAlreadyをtrue（=イイね済）とする
                 self.zabutonAlready = true
                 //ループを抜ける

@@ -134,45 +134,48 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
 //.childAddedイベント/.childChangedイベント
         if Auth.auth().currentUser != nil {
             if self.observing == false {
-                // 要素が追加されたらcommentPostArrayに追加してTableViewを再表示する
+            // 要素が追加されたらcommentPostArrayに追加してTableViewを再表示する
                 let postsRef = Database.database().reference().child(Const.PostPath).child(postData.id!)
                 postsRef.child("comment").observe(.childAdded, with: { snapshot in
-                    print("DEBUG_PRINT: .childAddedイベントが発生しました。")
+                    print("DEBUG_PRINT: comment.childAddedイベントが発生しました。")
 
                     // PostDataクラスを生成して受け取ったデータを設定する
                     if let uid = Auth.auth().currentUser?.uid {
                         let postData = PostData(snapshot: snapshot, myId: uid)
+                        //print("[試験.childAdded]\(self.commentPostArray)")
                         self.commentPostArray.insert(postData, at: 0)
                         
                         // TableViewを再表示する
                         self.commentTableView.reloadData()
                     }
 
-                    
                     //コメントカウント
                     self.commentCount.text = "\(self.commentPostArray.count)"
                     print("[追加カウント]\(self.commentPostArray.count)")
                 })
-                // 要素が変更されたら該当のデータをcommentPostArrayから一度削除した後に新しいデータを追加してTableViewを再表示する
-                postsRef.observe(.childChanged, with: { snapshot in
-                    print("DEBUG_PRINT: .childChangedイベントが発生しました。")
+            // 要素が変更されたら該当のデータをcommentPostArrayから一度削除した後に新しいデータを追加してTableViewを再表示する
+                postsRef.child("comment").observe(.childChanged, with: { snapshot in
+                    print("DEBUG_PRINT: comment.childChangedイベントが発生しました。")
 
                     if let uid = Auth.auth().currentUser?.uid {
                         
                         // PostDataクラスを生成して受け取ったデータを設定する
                         let postData = PostData(snapshot: snapshot, myId: uid)
-
-                        // 保持している配列からidが同じものを探す
+                        //print("[試験.childChanged]\(self.commentPostArray)")
+                    // 保持している配列からidが同じものを探す
                         var index: Int = 0
+                        //commentPostArrayから１つずつ取り出したものがpost
                         for post in self.commentPostArray {
+                            //もしpostData.idと取り出したidが同じだったら、
                             if post.id == postData.id {
+                                //取り出したidの最初のインデックスをindexとする
                                 index = self.commentPostArray.firstIndex(of: post)!
                                 
                                 break
                             }
                         }
 
-                        // 差し替えるため一度削除する
+                        // 差し替えるため一度indexを削除する
                         self.commentPostArray.remove(at: index)
 
                         // 削除したところに更新済みのデータを追加する
@@ -181,6 +184,8 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
                         // TableViewを再表示する
                         self.commentTableView.reloadData()
                     }
+                    // TableViewを再表示する
+                    self.commentTableView.reloadData()
 
                 })
 
@@ -223,9 +228,10 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
 
         // セルを取得してデータを設定する
         cell.setPostData(commentPostArray[indexPath.row])
-//        // セル内のボタンのアクションをソースコードで設定する
-//        cell.zabutonButton.addTarget(self, action:#selector(handleZabutonButton(_:forEvent:)), for: .touchUpInside)
+        // セル内のボタンのアクションをソースコードで設定する
+        cell.zabutonButton.addTarget(self, action:#selector(handleZabutonButton(_:forEvent:)), for: .touchUpInside)
         
+
         return cell
         
     }
@@ -240,7 +246,8 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
         let posts = postRef.child(postData.id!).child("comment").child(indexData.id!)
 
         //もし、投稿ユーザーIDが自分のIDじゃなかったら、
-        if postData.uid != Auth.auth().currentUser?.uid{
+        if indexData.commentUid != Auth.auth().currentUser?.uid{
+
             //💡スワイプアクション報告ボタン
             let reportButton: UIContextualAction = UIContextualAction(style: .normal, title: "報告",handler:  { (action: UIContextualAction, view: UIView, success :(Bool) -> Void )in
                 
@@ -279,62 +286,62 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
             //報告ボタンの色(赤)
             reportButton.backgroundColor = UIColor.red
             
-//            //💡スワイプアクションブロックボタン
-//            let blockButton: UIContextualAction = UIContextualAction(style: .normal, title: "ブロック",handler:  { (action: UIContextualAction, view: UIView, success :(Bool) -> Void )in
-//
-//                //アラートアクション（ブロック）
-//                let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-//                let blockAction = UIAlertAction(title: "ブロックする", style: .destructive) { (action) in
-//                    SVProgressHUD.showSuccess(withStatus: "このユーザーをブロックしました。")
-//
-//                //postArrayをフィルタリング（postArray.uidとpostData.uidが異なるもの(=ブロックIDじゃないもの)を残す）したもの
-//                let filteringArray = self.commentPostArray.filter{$0.uid != postData.uid}
-//                    print("【filteringArray】:\(filteringArray)")
-//
-//
-//                //postArrayの中身をfilteringArrayの中身にすり替える
-//                self.commentPostArray = filteringArray
-//
-//                // TableViewを再表示する
-//                self.commentTableView.reloadData()
-//
-//                    //userDefaulfに保存
-//                    let blockUserArray = [postData.uid!]
-//                        print("【blockUserArray】:\(blockUserArray)")
-//                    //userDefaultsが空じゃなかったら、
-//                    if self.userDefaults.array(forKey: "blockUser") != nil{
-//                        //userDefaultから取り出す
-//                        var getBlockUserArray = self.userDefaults.array(forKey: "blockUser") as! [String]
-//                        print("【getBlockUserArray】:\(getBlockUserArray)")
-//                        //getblockUserArrayにpostdata.uidを追加する
-//                        getBlockUserArray.append(postData.uid!)
-//                        print("【追加したgetBlockUserArray】:\(getBlockUserArray)")
-//                        //userDefaultにgetBlockUserArrayをセットする
-//                        self.userDefaults.set(getBlockUserArray, forKey: "blockUser")
-//                    //userDefaultsが空だったら、
-//                    }else{
-//                        //userDefaultにblockUserArrayをセットする
-//                        self.userDefaults.set(blockUserArray, forKey: "blockUser")
-//                    }
-//
-//
-//                }
-//                //アラートアクションのキャンセルボタン
-//                let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel) { (action) in
-//                    alertController.dismiss(animated: true, completion: nil)
-//                }
-//                //UIAlertControllerにブロックActionを追加
-//                alertController.addAction(blockAction)
-//                //UIAlertControllerにキャンセルActionを追加
-//                alertController.addAction(cancelAction)
-//                //アラートを表示
-//                self.present(alertController, animated: true, completion: nil)
-//                //テーブルビューの編集→切
-//                tableView.isEditing = false
-//            })
-//            //ブロックボタンの色(青)
-//            blockButton.backgroundColor = UIColor.blue
-          return UISwipeActionsConfiguration(actions: [reportButton])
+            //💡スワイプアクションブロックボタン
+            let blockButton: UIContextualAction = UIContextualAction(style: .normal, title: "ブロック",handler:  { (action: UIContextualAction, view: UIView, success :(Bool) -> Void )in
+
+                //アラートアクション（ブロック）
+                let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+                let blockAction = UIAlertAction(title: "ブロックする", style: .destructive) { (action) in
+                    SVProgressHUD.showSuccess(withStatus: "このユーザーをブロックしました。")
+
+                //postArrayをフィルタリング（postArray.uidとpostData.uidが異なるもの(=ブロックIDじゃないもの)を残す）したもの
+                let filteringArray = self.commentPostArray.filter{$0.uid != postData.uid}
+                    print("【filteringArray】:\(filteringArray)")
+
+
+                //postArrayの中身をfilteringArrayの中身にすり替える
+                self.commentPostArray = filteringArray
+
+                // TableViewを再表示する
+                self.commentTableView.reloadData()
+
+                    //userDefaulfに保存
+                    let blockUserArray = [postData.uid!]
+                        print("【blockUserArray】:\(blockUserArray)")
+                    //userDefaultsが空じゃなかったら、
+                    if self.userDefaults.array(forKey: "blockUser") != nil{
+                        //userDefaultから取り出す
+                        var getBlockUserArray = self.userDefaults.array(forKey: "blockUser") as! [String]
+                        print("【getBlockUserArray】:\(getBlockUserArray)")
+                        //getblockUserArrayにpostdata.uidを追加する
+                        getBlockUserArray.append(postData.uid!)
+                        print("【追加したgetBlockUserArray】:\(getBlockUserArray)")
+                        //userDefaultにgetBlockUserArrayをセットする
+                        self.userDefaults.set(getBlockUserArray, forKey: "blockUser")
+                    //userDefaultsが空だったら、
+                    }else{
+                        //userDefaultにblockUserArrayをセットする
+                        self.userDefaults.set(blockUserArray, forKey: "blockUser")
+                    }
+
+
+                }
+                //アラートアクションのキャンセルボタン
+                let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel) { (action) in
+                    alertController.dismiss(animated: true, completion: nil)
+                }
+                //UIAlertControllerにブロックActionを追加
+                alertController.addAction(blockAction)
+                //UIAlertControllerにキャンセルActionを追加
+                alertController.addAction(cancelAction)
+                //アラートを表示
+                self.present(alertController, animated: true, completion: nil)
+                //テーブルビューの編集→切
+                tableView.isEditing = false
+            })
+            //ブロックボタンの色(青)
+            blockButton.backgroundColor = UIColor.blue
+          return UISwipeActionsConfiguration(actions: [blockButton,reportButton])
 
         //投稿ユーザーが自分だったら、
          } else {
@@ -386,72 +393,53 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
 
         }
     
-//    //MARK:-コメントテーブルビューの座布団ボタン
-//    // セル内のボタンがタップされた時に呼ばれるメソッド
-//    @objc func handleZabutonButton(_ sender: UIButton, forEvent event: UIEvent) {
-//        print("DEBUG_PRINT: テーブル内の座布団ボタンがタップされました。")
-//
-//        guard let postData = postDataReceived else {return}
-//
-//        // タップされたセルのインデックスを求める
-//        let touch = event.allTouches?.first
-//        let point = touch!.location(in: self.commentTableView)
-//        let indexPath = commentTableView.indexPathForRow(at: point)
-//
-//        // 配列からタップされたインデックスのデータを取り出す
-//        let indexData = commentPostArray[indexPath!.row]
-//
-//        // Firebaseに保存するデータの準備
-//        if let uid = Auth.auth().currentUser?.uid {
-//            //すでに座布団されていたら、
-//            if indexData.zabutonAlready{
-//                print("[indexData.zabutonAlready]:\(indexData.zabutonAlready)")
-//                print("座布団されてるので、削除します。")
-//                //indexの初期値を-1とし、
-//                var index = -1
-//                //indexData.commentZabutonArrayから一つずつ取り出したものをcommentZabutonIdとする
-//                for commentZabutonId in indexData.commentZabutonArray {
-//                    //commentZabutonIdが自分のuidと同じだったら、
-//                    if commentZabutonId == uid {
-//                    print("[commentZabutonId]:\(commentZabutonId)")
-//                        // indexData.commentZabutonArrayの対象のインデックスをindexとする
-//                        index = indexData.commentZabutonArray.firstIndex(of: commentZabutonId)!
-//                        break
-//                    }
-//
-//                }
-//                //indexData.commentZabutonArrayからindexを削除する
-//                indexData.commentZabutonArray.remove(at: index)
-//                print("[indexData.commentZabutonArray]:\(indexData.commentZabutonArray)")
-//                indexData.zabutonAlready = false
-//                //差し替えるため一度削除する
-//                self.commentPostArray.remove(at: index)
-//                // commentTableViewを再表示する
-//                self.commentTableView.reloadData()
-//
-//            //座布団されていなかったら、
-//            } else {
-//                print("座布団されてないので、足します。")
-//                //indexData.commentZabutonArrayにuidをたす
-//                indexData.commentZabutonArray.append(uid)
-//                print("[indexData.commentZabutonArray]:\(indexData.commentZabutonArray)")
-//                indexData.zabutonAlready = true
-//
-//                print("[indexData.zabutonAlready]:\(indexData.zabutonAlready)")
-//                print("[postData.zabutonAlready]:\(postData.zabutonAlready)")
-//
-//            }
-//
-//            // 増えた座布団をFirebaseに保存する
-//            let postRef = Database.database().reference().child(Const.PostPath).child(postData.id!).child("comment").child(indexData.id!)
-//            let zabutons = ["commentZabutonArray": indexData.commentZabutonArray]
-//            postRef.updateChildValues(zabutons)
-//
-//
-//
-//
-//        }
-//    }
+    //MARK:-コメントテーブルビューの座布団ボタン
+    // セル内のボタンがタップされた時に呼ばれるメソッド
+    @objc func handleZabutonButton(_ sender: UIButton, forEvent event: UIEvent) {
+        print("DEBUG_PRINT: テーブル内の座布団ボタンがタップされました。")
+
+        //記事のインデックス番号を継承する
+        guard let postData = postDataReceived else {return}
+        
+        // タップされたセルのインデックスを求める
+        let touch = event.allTouches?.first
+        let point = touch!.location(in: self.commentTableView)
+        let indexPath = commentTableView.indexPathForRow(at: point)
+        
+        // 配列からタップされたインデックスのデータを取り出す
+        let indexData = commentPostArray[indexPath!.row]
+
+        // Auth.auth().currentUser?.uid（自分のuid）をuidとする
+        if let uid = Auth.auth().currentUser?.uid {
+            //すでに座布団されていたら、
+            if indexData.zabutonAlready {
+
+                //indexの初期値を-1とし、
+                var index = -1
+                //indexData.commentZabutonArrayから一つずつ取り出したものをgetCommentZabutonIdとする
+                for getCommentZabutonId in indexData.commentZabutonArray {
+                    //getCommentZabutonIdが自分のuidと同じだったら、
+                    if getCommentZabutonId == uid {
+                        // getCommentZabutonId（取り出したuid）の最初のインデックスをindexとする
+                        index = indexData.commentZabutonArray.firstIndex(of: getCommentZabutonId)!
+                        break
+                    }
+                }
+                //indexData.commentZabutonArrayからindexを削除する
+                indexData.commentZabutonArray.remove(at: index)
+
+            //座布団されていなかったら、
+            } else {
+                //indexData.commentZabutonArrayにuidをたす
+                indexData.commentZabutonArray.append(uid)
+            }
+            // 増えた座布団をFirebaseに保存する
+            let postRef = Database.database().reference().child(Const.PostPath).child(postData.id!).child("comment").child(indexData.id!)
+            let zabutons = ["commentZabutonArray": indexData.commentZabutonArray] as [String : Any]
+            postRef.updateChildValues(zabutons)
+            
+        }
+    }
     //キーボードを閉じる（タップしたら）
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -480,7 +468,7 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
         if self.commentTextField.text != ""  {
             
             // 辞書を作成してFirebaseに保存する
-            let postDic = ["uid":uid!,"commentProfileImage": profileImageString,"comment": textField.text!,"commentDate": String(commentTime), "commentName": name!] as [String : Any]
+            let postDic = ["commentUid":uid!,"commentProfileImage": profileImageString,"comment": textField.text!,"commentDate": String(commentTime), "commentName": name!] as [String : Any]
         postRef2.child(postData.id!).child("comment").childByAutoId().updateChildValues(postDic)
             
             //通知情報をFirebaseに保存
