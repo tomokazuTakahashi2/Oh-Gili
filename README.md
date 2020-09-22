@@ -17,6 +17,6 @@
 ## 画像イメージ
 ![](https://user-images.githubusercontent.com/52473279/91652271-75486f80-ead0-11ea-8002-6acc4abccb92.png)
 
-## App　Store
+## App Store
 https://apps.apple.com/jp/app/ohgili/id1528855243
 ![スクリーンショット 2020-09-23 1 10 37](https://user-images.githubusercontent.com/52473279/93908517-ab78b800-fd39-11ea-91c4-d26bdf154bf9.png)
