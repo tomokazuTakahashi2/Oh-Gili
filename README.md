@@ -20,3 +20,11 @@
 ## App Store
 https://apps.apple.com/jp/app/ohgili/id1528855243
 ![スクリーンショット 2020-09-23 1 10 37](https://user-images.githubusercontent.com/52473279/93908517-ab78b800-fd39-11ea-91c4-d26bdf154bf9.png)
+
+## 使用ライブラリ
+* ESTabBarController・・・タブバー
+* Firebase・・・データベース
+* SVProgressHUD・・・HUD
+* CLImageEditor/AllTools・・・写真編集
+* Kingfisher・・・画像表示
+* TPKeyboardAvoiding・・・キーボードで隠れないようにする
