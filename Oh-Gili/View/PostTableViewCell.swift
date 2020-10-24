@@ -20,6 +20,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var captionLabel: UILabel!
     @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet weak var commentCountLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -75,6 +76,9 @@ class PostTableViewCell: UITableViewCell {
         //座布団の数
         let zabutonNumber = postData.zabutons.count
         zabutonLabel.text = "\(zabutonNumber)"
+        //コメントの数
+        let commentCount = postData.commentCount
+        commentCountLabel.text = commentCount
         
     }
 }

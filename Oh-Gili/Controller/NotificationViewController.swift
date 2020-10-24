@@ -12,6 +12,8 @@ import Firebase
 class NotificationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var notificationArray: [PostData] = []
+    //グルグルインジケーター
+    var activityIndicatorView = UIActivityIndicatorView()
 
     //  userDefaultsの定義
     var userDefaults = UserDefaults.standard
@@ -23,6 +25,13 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //グルグルインジケーター
+        activityIndicatorView.center = view.center
+        activityIndicatorView.style = .whiteLarge
+        activityIndicatorView.color = .purple
+        view.addSubview(activityIndicatorView)
+        //グルグルインジケーターのスタート
+        activityIndicatorView.startAnimating()
 
         notificationTableView.delegate = self
         notificationTableView.dataSource = self
@@ -49,6 +58,9 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
                 // 要素が追加されたらnotificationArrayに追加してTableViewを再表示する
                 postsRef.observe(.childAdded, with: { snapshot in
                     print("DEBUG_PRINT: .childAddedイベントが発生しました。")
+                    
+                    //グルグルインジケーターアニメーション終了
+                    self.activityIndicatorView.stopAnimating()
                 
                     // PostDataクラスを生成して受け取ったデータを設定する
                     if let uid = Auth.auth().currentUser?.uid {

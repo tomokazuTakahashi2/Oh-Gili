@@ -13,6 +13,10 @@ import SVProgressHUD
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    
+    //グルグルインジケーター
+    var activityIndicatorView = UIActivityIndicatorView()
+    
 
     var postArray: [PostData] = []
     
@@ -26,8 +30,16 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     //MARK:-viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("DEBUG_PRINT: viewDidLoad")
+                
+        //グルグルインジケーター
+        activityIndicatorView.center = view.center
+        activityIndicatorView.style = .whiteLarge
+        activityIndicatorView.color = .purple
+        view.addSubview(activityIndicatorView)
+        //グルグルインジケーターのスタート
+        activityIndicatorView.startAnimating()
 
+        //テーブルビュー
         tableView.delegate = self
         tableView.dataSource = self
 
@@ -39,6 +51,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // テーブル行の高さの概算値を設定しておく
         // 高さ概算値 = 「縦横比1:1のUIImageViewの高さ(=画面幅)」+「いいねボタン、キャプションラベル、その他余白の高さの合計概算(=100pt)」
         tableView.estimatedRowHeight = UIScreen.main.bounds.width + 100
+
         
     }
     
@@ -56,11 +69,14 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 // 要素が追加されたらpostArrayに追加してTableViewを再表示する
                 postsRef.observe(.childAdded, with: { snapshot in
                     print("DEBUG_PRINT: .childAddedイベントが発生しました。")
-                
+                    
+                    //グルグルインジケーターアニメーション終了
+                    self.activityIndicatorView.stopAnimating()
+                    
                     //自分のIDをuidとする
                     if let uid = Auth.auth().currentUser?.uid {
                         let postData = PostData(snapshot: snapshot, myId: uid)
-                        
+                    
                         //userDefaultがnilじゃなかったら、
                         if self.userDefaults.array(forKey: "blockUser") as! [String]? != nil{
                             //userDefaultから呼び出す
@@ -171,6 +187,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // セル内のボタンのアクションをソースコードで設定する
         cell.likeButton.addTarget(self, action:#selector(handleHeartButton(_:forEvent:)), for: .touchUpInside)
         cell.zabutonButton.addTarget(self, action:#selector(handleZabutonButton(_:forEvent:)), for: .touchUpInside)
+        //シェアボタン
+        cell.shareButton.addTarget(self, action:#selector(shareButtonTap(_:forEvent:)), for: .touchUpInside)
 
         return cell
     }
@@ -181,7 +199,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     //セルをタップしたら画面遷移
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-      
+        
         //次ページにデータを送信するもの
         let postData = postArray[indexPath.row]
         postDataToSend = postData
@@ -191,20 +209,45 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         // セルの選択を解除
         tableView.deselectRow(at: indexPath, animated: true)
-
+        
     }
-
-        var postDataToSend: PostData?
-
-        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if segue.identifier == "cellSegue" {
-                let commentViewController = segue.destination as! CommentViewController
-                if let postData = postDataToSend {
-                    commentViewController.setPostData(postData)
-                }
+    //CommentViewControllerへデータを送る
+    var postDataToSend: PostData?
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "cellSegue" {
+            let commentViewController = segue.destination as! CommentViewController
+            if let postData = postDataToSend {
+                commentViewController.setPostData(postData)
             }
         }
-    
+    }
+    //MARK: - シェアボタン
+    @objc func shareButtonTap(_ sender: UIButton, forEvent event: UIEvent) {
+    print("DEBUG_PRINT:シェアボタンがタップされました。")
+        
+        // タップされたセルのインデックスを求める
+        let touch = event.allTouches?.first
+        let point = touch!.location(in: self.tableView)
+        let indexPath = tableView.indexPathForRow(at: point)
+        
+        // 配列からタップされたインデックスのデータを取り出す
+        let postData = postArray[indexPath!.row]
+        //キャプション
+        let text = postData.caption
+        //image
+        let image = postData.image
+        // 上下反転を補正しつつ419430バイト未満にする
+        let arrangedImage = image?.fixedOrientation()?.resizeImage(maxSize: 419430)
+        
+        //UIActivityViewController
+        //あらかじめSNSにあげるデータを用意する（文字列、画像）
+        let activityItems: [Any] = [text as Any, arrangedImage as Any]
+
+        let activityVc = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+        present(activityVc, animated: true, completion: {
+
+        })
+    }
     //MARK:-自分以外＝>報告・ブロックする
     internal func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
@@ -434,4 +477,60 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
+}
+//シェアボタンのエクステ
+extension UIImage {
+    
+    /// 上下逆になった画像を反転する
+    func fixedOrientation() -> UIImage? {
+        if self.imageOrientation == UIImage.Orientation.up {
+            return self
+        }
+        UIGraphicsBeginImageContextWithOptions(self.size, false, scale)
+        self.draw(in: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
+        guard let newImage = UIGraphicsGetImageFromCurrentImageContext() else {
+            return nil
+        }
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
+    /// イメージ縮小
+    func resizeImage(maxSize: Int) -> UIImage? {
+        
+        guard let jpg = self.jpegData(compressionQuality: 1) as NSData? else {
+            return nil
+        }
+        if isLessThanMaxByte(data: jpg, maxDataByte: maxSize) {
+            return self
+        }
+        // 80%に圧縮
+        let _size: CGSize = CGSize(width: (self.size.width * 0.8), height: (self.size.height * 0.8))
+        UIGraphicsBeginImageContext(_size)
+        self.draw(in: CGRect(x: 0, y: 0, width: _size.width, height: _size.height))
+        guard let newImage = UIGraphicsGetImageFromCurrentImageContext() else {
+            return nil
+        }
+        UIGraphicsEndImageContext()
+        // 再帰処理
+        return newImage.resizeImage(maxSize: maxSize)
+    }
+    
+    /// 最大容量チェック
+    func isLessThanMaxByte(data: NSData?, maxDataByte: Int) -> Bool {
+        
+        if maxDataByte <= 0 {
+            // 最大容量の指定が無い場合はOK扱い
+            return true
+        }
+        guard let data = data else {
+            fatalError("Data unwrap error")
+        }
+        if data.length < maxDataByte {
+            // 最大容量未満：OK　※以下でも良いがバッファを取ることにした
+            return true
+        }
+        // 最大容量以上：NG
+        return false
+    }
 }

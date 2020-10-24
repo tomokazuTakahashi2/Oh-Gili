@@ -16,6 +16,7 @@ class PostData: NSObject {
     var imageString: String?
     var name: String?
     var caption: String?
+    var commentCount: String?
     var date: Date?
     var likes: [String] = []
     var isLiked: Bool = false
@@ -73,6 +74,10 @@ class PostData: NSObject {
         //プロフィール画像
         if let profileImageString = valueDictionary["profileImage"] as? String{
             profileImage = UIImage(data: Data(base64Encoded: profileImageString, options: .ignoreUnknownCharacters)!)
+        }
+        //コメントカウント
+        if let comments = valueDictionary["commentCount"] as? String {
+            self.commentCount = comments
         }
         
         //ハートカウント

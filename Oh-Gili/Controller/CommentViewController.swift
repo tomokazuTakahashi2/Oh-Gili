@@ -136,7 +136,7 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
             if self.observing == false {
             // 要素が追加されたらcommentPostArrayに追加してTableViewを再表示する
                 let postsRef = Database.database().reference().child(Const.PostPath).child(postData.id!)
-                postsRef.child("comment").observe(.childAdded, with: { snapshot in
+                postsRef.child("comments").observe(.childAdded, with: { snapshot in
                     print("DEBUG_PRINT: comment.childAddedイベントが発生しました。")
 
                     // PostDataクラスを生成して受け取ったデータを設定する
@@ -152,9 +152,12 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
                     //コメントカウント
                     self.commentCount.text = "\(self.commentPostArray.count)"
                     print("[追加カウント]\(self.commentPostArray.count)")
+                    
+                    postsRef.child("commentCount").setValue("\(self.commentPostArray.count)")
+
                 })
             // 要素が変更されたら該当のデータをcommentPostArrayから一度削除した後に新しいデータを追加してTableViewを再表示する
-                postsRef.child("comment").observe(.childChanged, with: { snapshot in
+                postsRef.child("comments").observe(.childChanged, with: { snapshot in
                     print("DEBUG_PRINT: comment.childChangedイベントが発生しました。")
 
                     if let uid = Auth.auth().currentUser?.uid {
@@ -186,6 +189,8 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
                     }
                     // TableViewを再表示する
                     self.commentTableView.reloadData()
+                    //Firebaseを更新する
+                    postsRef.child("commentCount").setValue("\(self.commentPostArray.count)")
 
                 })
 
@@ -201,7 +206,7 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
                 commentPostArray = []
                 commentTableView.reloadData()
                 // オブザーバーを削除する
-                let postsRef = Database.database().reference().child(Const.PostPath).child(postData.id!).child("comment")
+                let postsRef = Database.database().reference().child(Const.PostPath).child(postData.id!).child("comments")
                 postsRef.removeAllObservers()
 
                 // DatabaseのobserveEventが上記コードにより解除されたため
@@ -243,7 +248,7 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
 
         let indexData = commentPostArray[indexPath.row]
         let postRef = Database.database().reference().child(Const.PostPath)
-        let posts = postRef.child(postData.id!).child("comment").child(indexData.id!)
+        let posts = postRef.child(postData.id!).child("comments").child(indexData.id!)
 
         //もし、投稿ユーザーIDが自分のIDじゃなかったら、
         if indexData.commentUid != Auth.auth().currentUser?.uid{
@@ -434,7 +439,7 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
                 indexData.commentZabutonArray.append(uid)
             }
             // 増えた座布団をFirebaseに保存する
-            let postRef = Database.database().reference().child(Const.PostPath).child(postData.id!).child("comment").child(indexData.id!)
+            let postRef = Database.database().reference().child(Const.PostPath).child(postData.id!).child("comments").child(indexData.id!)
             let zabutons = ["commentZabutonArray": indexData.commentZabutonArray] as [String : Any]
             postRef.updateChildValues(zabutons)
             
@@ -469,7 +474,7 @@ class CommentViewController: UIViewController, UITableViewDataSource, UITableVie
             
             // 辞書を作成してFirebaseに保存する
             let postDic = ["commentUid":uid!,"commentProfileImage": profileImageString,"comment": textField.text!,"commentDate": String(commentTime), "commentName": name!] as [String : Any]
-        postRef2.child(postData.id!).child("comment").childByAutoId().updateChildValues(postDic)
+            postRef2.child(postData.id!).child("comments").childByAutoId().updateChildValues(postDic)
             
             //通知情報をFirebaseに保存
             let notificationDic = ["通知画像": profileImageString,"日時":String(commentTime),"名前A":name!,"名前B":postData.name!]
